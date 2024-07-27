@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--Form-->
+    <record id="view_form_product_template_multi_image" model="ir.ui.view">
+        <field name="name">product.template.view.form.inherit.multi.image
+        </field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[1]/page[last()]" position="after">
+                <page string="Gallery">
+                    <separator string="Layouts"/>
+                    <group>
+                        <field name="image_layout" string="Image" widget="radio"
+                               options="{'horizontal': true}"/>
+                        <field name="video_youtube_layout" string="Youtube"
+                               widget="radio" options="{'horizontal': true}"/>
+                        <field name="kanban_display_popup"/>
+                    </group>
+                    <separator string="Images"/>
+                    <field name="image_ids">
+                        <kanban class="o_kanban_mobile">
+                            <field name="image"/>
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                                        <a t-if="!read_only_mode" type="delete"
+                                           class="pull-right">Delete
+                                        </a>
+                                        <center>
+                                            <img t-att-src="'data:image/png;base64,'+record.image.raw_value"
+                                                 style="padding-top:24px;padding-bottom:24px;max-width:100%;"/>
+                                        </center>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                        <form>
+                            <group>
+                                <field name="image"/>
+                            </group>
+                        </form>
+                    </field>
+                    <separator string="Youtube Videos"/>
+                    <field name="youtube_video_ids">
+                        <tree>
+                            <field name="link"
+                                   placeholder="Youtube Embed Code .."/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="link"
+                                       placeholder="Eg. https://youtu.be/fgdz8MH2YHY"/>
+                            </group>
+                            <center>
+                                <p class="text-muted">Copy the video url from
+                                    the particular youtube video ..
+                                </p>
+                                <img src="/product_image_multiple/static/description/01.png"
+                                     style="height:362px;border:2px solid #c2c2c2;box-shadow:0 2px 6px 2px rgba(150,150,150,0.3);opacity:0.5;"/>
+                            </center>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Kanban-->
+    <record id="view_kanban_product_template_multi_image" model="ir.ui.view">
+        <field name="name">product.template.view.inherit.multi.image</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_kanban_view"/>
+        <field name="arch" type="xml">
+            <field name="lst_price" position="after">
+                <field name="image_ids" invisible="1"/>
+                <field name="youtube_video_ids" invisible="1"/>
+            </field>
+            <xpath expr="//div[@name='product_lst_price']" position="after">
+                <li t-if="record.image_ids.raw_value != 0 or record.youtube_video_ids.raw_value != 0">
+                    <a name="open_multi_image_view" type="object"
+                       t-if="record.image_ids.raw_value != 0"
+                       style="font-size:16px;">
+                        <i class="fa fa-picture-o"/>
+                    </a>
+                    <a name="open_video_view" type="object"
+                       t-if="record.youtube_video_ids.raw_value != 0"
+                       style="padding-left:2px;font-size:17px;">
+                        <i class="fa fa-youtube-play"/>
+                    </a>
+                </li>
+            </xpath>
+        </field>
+    </record>
+    <!--Form (Multi Images)-->
+    <record id="view_form_wizard_product_template_multi_images"
+            model="ir.ui.view">
+        <field name="name">product.template.view.form.wizard.multi.image.view
+        </field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <form create="0" delete="0" edit="0">
+                <field name="image_ids">
+                    <kanban class="o_kanban_mobile" create="0" delete="0"
+                            edit="0">
+                        <field name="image"/>
+                        <field name="image_layout_style"/>
+                        <templates>
+                            <t t-name="kanban-box">
+                                <div t-att-style="record.image_layout_style.raw_value">
+                                    <center>
+                                        <img t-att-src="'data:image/png;base64,'+record.image.raw_value"
+                                             style="padding-top:24px;padding-bottom:24px;max-width:100%;"/>
+                                    </center>
+                                </div>
+                            </t>
+                        </templates>
+                    </kanban>
+                </field>
+                <field name="kanban_display_popup" invisible="1"/>
+                <footer attrs="{'invisible':[('kanban_display_popup','!=',True)]}">
+                    <button string="Close" class="btn-primary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--Form (Videos)-->
+    <record id="view_form_wizard_product_template_videos" model="ir.ui.view">
+        <field name="name">product.template.view.form.wizard.video.view</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <form create="0" delete="0" edit="0">
+                <field name="youtube_video_ids">
+                    <kanban class="o_kanban_mobile" create="0" delete="0"
+                            edit="0">
+                        <field name="link"/>
+                        <field name="video_code"/>
+                        <field name="youtube_layout_style"/>
+                        <templates>
+                            <t t-name="kanban-box">
+                                <div t-att-style="record.youtube_layout_style.raw_value">
+                                    <center>
+                                        <field name="video_code" invisible="1"/>
+                                        <iframe width="100%" height="400px"
+                                                t-att-src="'https://www.youtube.com/embed/' + record.video_code.raw_value"
+                                                frameborder="0"
+                                                t-if="record.video_code.raw_value"/>
+                                    </center>
+                                </div>
+                            </t>
+                        </templates>
+                    </kanban>
+                </field>
+                <field name="kanban_display_popup" invisible="1"/>
+                <footer attrs="{'invisible':[('kanban_display_popup','!=',True)]}">
+                    <button string="Close" class="btn-primary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

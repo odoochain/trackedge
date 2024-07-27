@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="trackedge_action_product_state"
+            model="ir.actions.act_window">
+        <field name="name">Item Status</field>
+        <field name="res_model">product.state</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">list,form</field>
+        <field name="limit">20</field>
+    </record>
+
+    <menuitem id="trackedge_menu_product_state"
+              action="trackedge_action_product_state"
+              name="Item Status"
+              parent="trackedge_base.trackedge_item_attributes"
+              sequence="9"/>
+</odoo>

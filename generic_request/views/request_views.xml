@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_request_window">
+        <field name="name">Requests</field>
+        <field name="res_model">request.request</field>
+        <field name="view_mode">tree,kanban,graph,pivot,form,activity</field>
+        <field name="context">{'search_default_filter_open': 1}</field>
+<!--        <field name="context">{'search_default_filter_open': 1, 'search_default_filter_assigned_to_me': 1, 'search_default_filter_created_by_me': 1, 'search_default_filter_unassigned': 1}</field>-->
+    </record>
+
+    <!-- Requests menu structure -->
+    <menuitem name="Service Manager"
+              id="menu_request_root"
+              action="action_request_window"
+              groups="generic_request.group_request_user_view_helpdesk"
+              web_icon="generic_request,static/description/icon.png"/>
+
+    <record model="ir.ui.menu" id="generic_request.menu_request_root">
+        <field name="fa_icon">fas fa-user-headset</field>
+        <field name="css_class">routines</field>
+    </record>
+
+    <menuitem name="Requests"
+              id="menu_request"
+              parent="menu_request_root"
+              sequence="20"/>
+
+    <menuitem name="Reports"
+              id="menu_request_report"
+              parent="menu_request_root"
+              groups="group_request_manager"
+              sequence="40"/>
+
+    <menuitem name="Configuration"
+              id="menu_configuration"
+              parent="menu_request_root"
+              groups="group_request_manager"
+              sequence="60"/>
+
+    <menuitem name="Requests"
+              id="menu_configuration_requests"
+              parent="menu_configuration"
+              sequence="20"/>
+
+</odoo>

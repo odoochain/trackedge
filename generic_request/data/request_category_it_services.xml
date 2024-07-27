@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="request_category_it_services" model="request.category">
+        <field name="name">IT Services</field>
+        <field name="code">it-services</field>
+        <field name="description">IT Services</field>
+    </record>
+</odoo>

@@ -1,0 +1,46 @@
+html {
+  body {
+    color: black;
+    .sm-login-container {
+      margin: auto;
+      height: 100%;
+      display: flex;
+      overflow: auto;
+      align-items: center;
+      padding: 0;
+      .card {
+        div:first-child {
+          padding-bottom: 56px !important;
+        }
+        margin: auto !important;
+        height: fit-content;
+        background-color: transparent !important;
+        .card-body {
+          min-width: 300px !important;
+          padding: 20px;
+          padding-top: 36px;
+        }
+        label {
+          color: black;
+        }
+      }
+    }
+  }
+}
+@media all and (min-width: 767px) {
+  html {
+    body {
+      .sm-login-container {
+        .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          .card-body {
+            background-color: white;
+            .border-top {
+              margin-top: 60px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

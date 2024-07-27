@@ -1,0 +1,64 @@
+.o_form_view .o_form_sheet_bg .oe_title span.o_field_widget{
+       font-weight: normal;
+}
+.o_field_widget {
+    &.o_field_many2one .o_external_button {
+        color: $o-brand-odoo
+    }
+}
+
+.o_required_modifier {
+    &.o_input, .o_input {
+        background-color: $mk-required-color !important;
+    }
+}
+.o_row.location_id {
+    width: 83.5% !important;
+}
+
+
+@include media-breakpoint-down(sm) {
+    .o_form_view .mk_mobile_add {
+		margin-left: 0 !important;
+        margin-bottom: 10px !important;
+	}
+}
+.o_kanban_record_body{
+    .text-primary-dsk{
+        color: #4c4c4c !important;
+        padding-bottom: 2px !important;
+    }
+    .text-danger{
+        color: #4c4c4c !important;
+        padding-bottom: 2px !important;
+        padding-top: 2px !important;
+    }
+    .text-info{
+        color: #4c4c4c !important;
+        padding-bottom: 2px !important;
+        padding-top: 2px !important;
+    }
+}
+.asset_notice_label{
+    margin-top: 5px !important;
+}
+.btn-outline-primary.ac_button, .btn-outline-primary-ac.ac_button{
+      margin: 0 1.5em 0 0;
+}
+.ac_header {
+    position: sticky;
+    z-index: 1;
+    top: 0px !important;
+    justify-content: space-between;
+    padding-left: 10px;
+    justify-content: space-between;
+    padding-left: 10px;
+    border-bottom: 1px solid #ced4da;
+    background-color: #ffffff;
+}
+.ac_header .btn{
+    margin: 0 0.7em 0 0; border-radius: .25em;
+}
+.update_FAR_matching {
+    display: none;
+}

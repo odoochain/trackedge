@@ -1,0 +1,1472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="trackedge_product_template_form_view" model="ir.ui.view">
+        <field name="name">trackedge.product.template.form</field>
+        <field name="model">product.product</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form string="Item" create="false" edit="true" delete="false">
+                <header>
+                    <button name="action_update_quantity_on_hand"
+                            string="Update Qty On Hand"
+                            type="object"
+                            invisible="1"
+                            attrs="{'invisible': [('type', '!=', 'product')]}"/>
+<!--                    <button string="Replenish"-->
+<!--                            type="object"-->
+<!--                            name="action_product_replenish"-->
+<!--                            context="{'default_product_tmpl_id': id}"-->
+<!--                            groups="stock.group_stock_user"-->
+<!--                            invisible="1"-->
+<!--                            attrs="{'invisible': [('type', '!=', 'product')]}"/>-->
+                </header>
+                <sheet class="product_template">
+                    <field name="product_variant_count" invisible="1"/>
+                    <field name="is_product_variant" invisible="1"/>
+                    <field name="attribute_line_ids" invisible="1"/>
+                    <field name="id" invisible="True"/>
+                    <field name="sale_ok" invisible="1"/>
+                    <field name="purchase_ok" invisible="1"/>
+                    <div class="oe_button_box" name="button_box"
+                         invisible="1"
+                         groups="trackedge_base.group_trackedge_show_item_master_details">
+                        <button type="object" name="action_open_quants"
+                                attrs="{'invisible':[('type', '!=', 'product')]}"
+                                class="oe_stat_button" icon="fa-building-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value" widget="statinfo">
+                                    <field name="qty_available"
+                                           widget="statinfo" nolabel="1"
+                                           class="mr4"/>
+                                    <field name="uom_name"/>
+                                </span>
+                                <span class="o_stat_text">On Hand</span>
+                            </div>
+                        </button>
+<!--                        <button type="action"-->
+<!--                                name="(stock.stock_replenishment_product_product_action)"-->
+<!--                                attrs="{'invisible':[('type', '!=', 'product')]}"-->
+<!--                                class="oe_stat_button" icon="fa-building-o">-->
+<!--                            <div class="o_field_widget o_stat_info">-->
+<!--                                <span class="o_stat_value">-->
+<!--                                    <field name="virtual_available"-->
+<!--                                           widget="statinfo" nolabel="1"/>-->
+<!--                                    <span attrs="{'invisible':[('outgoing_qty', '=', 0),('incoming_qty','=',0)]}"-->
+<!--                                          groups="base.group_no_one">-->
+<!--                                        (- -->
+<!--                                        <field name="outgoing_qty"-->
+<!--                                               widget="statinfo" nolabel="1"/>-->
+<!--                                        +<field name="incoming_qty"-->
+<!--                                                widget="statinfo" nolabel="1"/>)-->
+<!--                                    </span>-->
+<!--                                    <field name="uom_name" class="ml4"/>-->
+<!--                                </span>-->
+<!--                                <span class="o_stat_text">Forecasted</span>-->
+<!--                            </div>-->
+<!--                        </button>-->
+                        <button type="object" name="action_open_quants"
+                                attrs="{'invisible':[('type', 'not in', ['product','consu'])]}"
+                                class="oe_stat_button" icon="fa-building-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value" widget="statinfo">
+                                    <field name="immediately_usable_qty"
+                                           widget="statinfo" nolabel="1"
+                                           class="mr4"/>
+                                    <field name="uom_name"/>
+                                </span>
+                                <span class="o_stat_text">Available</span>
+                            </div>
+                        </button>
+                        <button string="Product Moves" type="object"
+                                name="action_view_stock_move_lines"
+                                attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}"
+                                class="oe_stat_button" icon="fa-arrows-v"
+                                groups="stock.group_stock_user"/>
+                        <button type="object" name="action_view_orderpoints"
+                                attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '==', 1)]}"
+                                class="oe_stat_button" icon="fa-refresh">
+                            <field name="nbr_reordering_rules"
+                                   widget="statinfo"/>
+                        </button>
+                        <button type="object" name="action_view_orderpoints"
+                                attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '!=', 1)]}"
+                                class="oe_stat_button" icon="fa-refresh">
+                            <div class="o_field_widget o_stat_info mr4">
+                                <span class="o_stat_text">Min:</span>
+                                <span class="o_stat_text">Max:</span>
+                            </div>
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="reordering_min_qty"/>
+                                </span>
+                                <span class="o_stat_value">
+                                    <field name="reordering_max_qty"/>
+                                </span>
+                            </div>
+                        </button>
+                        <button string="Routes" type="action"
+                                name="%(stock.action_stock_rules_report)d"
+                                attrs="{'invisible':[('type', '!=', 'product')]}"
+                                class="oe_stat_button" icon="fa-cogs"
+                                context="{'default_product_id': id}"
+                                groups="stock.group_stock_multi_locations"/>
+                        <button string="Serial Number" type="object"
+                                name="action_open_product_lot"
+                                attrs="{'invisible': [('tracking', '=', 'none')]}"
+                                class="oe_stat_button" icon="fa-bars"
+                                groups="stock.group_production_lot"/>
+                        <button class="oe_stat_button"
+                                name="%(stock_available_unreserved.product_open_quants_unreserved)d"
+                                icon="fa-building-o"
+                                type="action"
+                                attrs="{'invisible':[('type', '!=', 'product')]}">
+                            <field name="qty_available_not_res"
+                                   widget="statinfo"
+                                   string="Unreserved"/>
+                        </button>
+                        <button class="oe_stat_button"
+                                name="action_view_reservations"
+                                type="object"
+                                attrs="{'invisible':[('type', '!=', 'product')]}"
+                                context="{'type': 'onhold'}"
+                                icon="fa-lock">
+                            <field string="On Hold" name="onhold_count"
+                                   widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button"
+                                name="action_view_reservations"
+                                type="object"
+                                context="{'type': 'faulty'}"
+                                attrs="{'invisible':[('type', '!=', 'product')]}"
+                                icon="fa-lock">
+                            <field string="Faulty" name="faulty_count"
+                                   widget="statinfo"/>
+                        </button>
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                   options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                    </div>
+                    <field name="image_1920"
+                           widget="image_popup"
+                           help=""
+                           invisible="1"
+                           class="oe_avatar product_image"/>
+                    <field name="part_image_url"
+                           widget="image"
+                           class="oe_avatar product_image"/>
+                    <div class="oe_title item_master_title">
+                        <label class="font-weight-bold"
+                               for="oem_id" string="OEM"/>
+                        <span>*</span>
+                        <br/>
+                        <field name="oem_id"
+                               string="OEM"
+                               required="1"
+                               nolabel="1"/>
+                        <br/>
+                        <label for="default_code" string="Item #"/>
+                        <span>*</span>
+                        <br/>
+                        <field name="default_code" string="Item #"
+                               required="1"/>
+                        <br/>
+                        <label for="name" string="Item Description"/>
+                        <span>*</span>
+                        <h1 class="item-description">
+                            <field name="name"
+                                   string="Description"
+                                   widget="dynamic_popover_text"
+                                   options="{'max_width': '100px', 'line_clamp': '1'}"/>
+                        </h1>
+                    </div>
+                    <notebook>
+                        <page string="General Information"
+                              name="general_information">
+                            <group col="4">
+
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="oem_alt_part_number"/>
+
+                                        <br/>
+                                        <field name="oem_alt_part_number"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="aka" string="AKA"/>
+                                        <br/>
+                                        <field name="aka"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="aka2" string="AKA 2"/>
+                                        <br/>
+                                        <field name="aka2" string="AKA 2"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="revision_number_ids"/>
+                                        <br/>
+                                        <field name="revision_number_ids"
+                                               nolabel="1"
+                                               widget="many2many_tags"
+                                               options="{'no_create_edit': True, 'no_create': True}"/>
+                                    </div>
+                                </group>
+
+                            </group>
+                            <group col="4">
+                                <!-- <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="oem_id" string="OEM"/><span>*</span>
+                                        <br/>
+                                        <field name="oem_id"
+                                               string="OEM"
+                                               domain="[('is_owner','=',True)]"
+                                               nolabel="1"/>
+
+                                    </div>
+                                </group> -->
+
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="clei_num"/>
+                                        <br/>
+                                        <field name="clei_num" nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="type" string="Group *"/>
+                                        <br/>
+                                        <field name="type" string="Group"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="class_id"
+                                               string="Item Class"/>
+                                        <br/>
+                                        <field name="class_id" nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="erp_code"
+                                               string="ERP Code"/>
+                                        <br/>
+                                        <field name="erp_code"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="erp_code2"
+                                               string="ERP Code 2"/>
+                                        <br/>
+                                        <field name="erp_code2"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group col="4">
+
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="category_id"
+                                               string="Item Category"/>
+                                        <br/>
+                                        <field name="category_id"
+                                               string="Category" nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group invisible="1">
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="type_ids"/>
+                                        <br/>
+                                        <field name="type_ids"
+                                               widget="many2many_tags"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="item_type"
+                                               string="Item Type"/>
+                                        <br/>
+                                        <field name="item_type"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="item_status"
+                                               string="Item Status"/>
+                                        <br/>
+                                        <field name="item_status"/>
+                                    </div>
+                                </group>
+
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="system_category_id"
+                                               string="System Category"/>
+                                        <br/>
+                                        <field name="system_category_id"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="system_type_ids"
+                                               string="System Type"/>
+                                        <br/>
+                                        <field name="system_type_ids"
+                                               string="System Type" nolabel="1"
+                                               widget="many2many_tags"/>
+                                    </div>
+                                </group>
+
+                            </group>
+                            <group col="4">
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="technology_type_ids"/>
+                                        <br/>
+                                        <field name="technology_type_ids"
+                                               nolabel="1"
+                                               widget="many2many_tags"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="frequency_ids"/>
+                                        <br/>
+                                        <field name="frequency_ids"
+                                               string="Group" nolabel="1"
+                                               widget="many2many_tags"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="item_status"
+                                               string="Status"/>
+                                        <br/>
+                                        <field name="item_status"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="item_class_type"
+                                               string="Item Class Type"/>
+                                        <br/>
+                                        <field name="item_class_type"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group col="4">
+<!--                                <group>-->
+<!--                                    <div>-->
+<!--                                        <label class="font-weight-bold"-->
+<!--                                               for="kit_items_ids"/>-->
+<!--                                        <br/>-->
+<!--                                        <field name="kit_items_ids"-->
+<!--                                               nolabel="1"-->
+<!--                                               attrs="{'required':[('pack_ok','=',True)]}"-->
+<!--                                               widget="many2many_tags"/>-->
+<!--                                    </div>-->
+<!--                                </group>-->
+                                 <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="pack_ok"
+                                               string="Is Build kit"/>
+                                        <br/>
+                                        <field name="pack_ok"/>
+                                    </div>
+                                </group>
+                                <group attrs="{'invisible': [('pack_ok', '=', False)]}">
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="kit_type"/>
+                                        <br/>
+                                        <field name="kit_type"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               string="Should Override Default OEM"
+                                               for="should_override_default_oem_replace_price"/>
+                                        <br/>
+                                        <field name="should_override_default_oem_replace_price"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group>
+                                <div>
+                                    <label class="font-weight-bold"
+                                           for="description"/>
+                                    <br/>
+                                    <field name="description"/>
+                                </div>
+                            </group>
+
+
+                        </page>
+                        <field name="categ_id" string="Product Category"
+                               invisible="1"/>
+
+                        <page string="Measurements">
+
+                            <group name="group_standard_price" string="Units"
+                                   col="3">
+                                <group groups="trackedge_base.group_trackedge_view_cost">
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="list_price"/>
+                                        <br/>
+                                        <field name="list_price" nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group groups="trackedge_base.group_trackedge_view_cost">
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="standard_price"/>
+                                        <br/>
+                                        <field name="standard_price"
+                                               nolabel="1"/>
+
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="uom_id"
+                                               string="Unit of Measure *"/>
+                                        <br/>
+                                        <field name="uom_id"
+                                               string="Unit of Measure"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+
+                            </group>
+
+
+                            <group col="4" name="group_standard_price"
+                                   string="Physical">
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="physical_weight"
+                                               string="Physical Weight"/>
+                                        <br/>
+                                        <div class="o_row" name="Physical Weigh">
+                                            <span>
+                                                <field name="physical_weight"
+                                                       string="Physical Weight"
+                                                       nolabel="1"/>
+                                                g
+                                            </span>
+                                        </div>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="physical_height"
+                                               string="Physical Height"/>
+                                        <br/>
+                                        <div class="o_row" name="Physical Height">
+                                            <span>
+                                                <field name="physical_height"
+                                                       string="Physical Height"
+                                                       nolabel="1"/>
+                                                mm
+                                            </span>
+                                        </div>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="physical_length"
+                                               string="Physical Length"/>
+                                        <br/>
+                                        <div class="o_row" name="Physical Length">
+                                            <span>
+                                                <field name="physical_length"
+                                                       string="Physical Length"
+                                                       nolabel="1"/>
+                                                mm
+                                            </span>
+                                        </div>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="physical_width"
+                                               string="Physical Width"/>
+                                        <br/>
+                                        <div class="o_row" name="Physical Width">
+                                            <span>
+                                                <field name="physical_width"
+                                                       string="Physical Width"
+                                                       nolabel="1"/>
+                                                mm
+                                            </span>
+                                        </div>
+                                    </div>
+                                </group>
+
+                            </group>
+                            <group col="4" name="group_standard_price"
+                                   string="Shipping">
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="shipping_weight"
+                                               string="Shipping Weight"/>
+                                        <br/>
+                                        <div class="o_row" name="shipping">
+                                            <span>
+                                                <field name="shipping_weight" string="Physical Weight"/>
+                                                g
+                                            </span>
+                                        </div>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="shipping_height"
+                                               string="Shipping Height"/>
+                                        <br/>
+                                        <div class="o_row">
+                                            <span>
+                                                <field name="shipping_height"
+                                                       string="Shipping Height"
+                                                       nolabel="1"/>
+                                                mm
+                                            </span>
+                                        </div>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="shipping_length"
+                                               string="Shipping Length"/>
+                                        <br/>
+                                        <div class="o_row">
+                                            <span>
+                                                <field name="shipping_length"
+                                                       string="Shipping Length"
+                                                       nolabel="1"/>
+                                                mm
+                                            </span>
+                                        </div>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="shipping_width"
+                                               string="Shipping Width"/>
+                                        <br/>
+                                        <div class="o_row">
+                                            <span>
+                                                <field name="shipping_width"
+                                                       string="Shipping Width"
+                                                       nolabel="1"/>
+                                                mm
+                                            </span>
+                                        </div>
+                                    </div>
+                                </group>
+
+                            </group>
+                            <group col="4" name="group_standard_price"
+                                   string="Software">
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="software_dependency"/>
+                                        <br/>
+                                        <field name="software_dependency"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="software_info"/>
+                                        <br/>
+                                        <field name="software_info"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="lifespan_in_months"/>
+                                        <br/>
+                                        <field name="lifespan_in_months"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="is_snmp_enabled"
+                                               string="SNMP Enabled?"/>
+                                        <br/>
+                                        <field name="is_snmp_enabled"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+
+                            </group>
+                            <group col="4" string="Power">
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="power_type"/>
+                                        <br/>
+                                        <field name="power_type" nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="voltage_id"/>
+                                        <br/>
+                                        <field name="voltage_id" nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="amp_hours"/>
+                                        <br/>
+                                        <field name="amp_hours" nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="max_watt"/>
+                                        <br/>
+                                        <field name="max_watt" nolabel="1"/>
+                                    </div>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="min_watt"/>
+                                        <br/>
+                                        <field name="min_watt" nolabel="1"/>
+                                    </div>
+                                </group>
+
+                            </group>
+                            <group col="2" string="Temperature">
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="min_operating_temp"/>
+                                        <br/>
+                                        <field name="min_operating_temp"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="max_operating_temp"/>
+                                        <br/>
+                                        <field name="max_operating_temp"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group col="4">
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="last_sold_date"/>
+                                        <br/>
+                                        <field name="last_sold_date"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="end_of_life_date"/>
+                                        <br/>
+                                        <field name="end_of_life_date"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="end_of_service"/>
+                                        <br/>
+                                        <field name="end_of_service"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="end_of_life"/>
+                                        <br/>
+                                        <field name="end_of_life" nolabel="1"/>
+                                    </div>
+                                </group>
+
+                            </group>
+
+                            <group col="2">
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="barcode_img"/>
+                                        <br/>
+                                        <field name="barcode_img" nolabel="1"/>
+                                    </div>
+                                </group>
+
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="barcode2_img"/>
+                                        <br/>
+                                        <field name="barcode2_img" nolabel="1"/>
+                                    </div>
+                                </group>
+
+                            </group>
+                            <group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="barcode"/>
+                                        <br/>
+                                        <field name="barcode" nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="barcode2"/>
+                                        <br/>
+                                        <field name="barcode2" nolabel="1"/>
+                                    </div>
+                                </group>
+                            </group>
+
+                            <group>
+                                <field name="company_id"
+                                       groups="base.group_multi_company"
+                                       options="{'no_create': True}"/>
+                                <field name="uom_po_id"
+                                       invisible="1"
+                                       groups="uom.group_uom"
+                                       options="{'no_create': True}"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="cost_currency_id"
+                                       invisible="1"/>
+                                <field name="product_variant_id"
+                                       invisible="1"/>
+                            </group>
+
+                            <group>
+                                <group>
+                                    <field name="notes" invisible="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Documents" name="documents">
+                            <group>
+                                <group>
+                                    <field name="spec_sheet_doc"/>
+                                </group>
+                                <group>
+                                    <field name="warranty_doc"/>
+                                    <field name="warranty"/>
+                                </group>
+
+                            </group>
+                        </page>
+                        <page string="Trackedge Variables"
+                              name="trackedge_variables" invisible="1">
+                            <group col="4">
+                                <group>
+                                    <div>S
+                                        <label class="font-weight-bold"
+                                               for="market_availability_tier"/>
+                                        <br/>
+                                        <field name="market_availability_tier"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="market_avail_qty"/>
+                                        <br/>
+                                        <field name="market_avail_qty"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="high_runner_code"/>
+                                        <br/>
+                                        <field name="high_runner_code"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="fault_rate"/>
+                                        <br/>
+                                        <field name="fault_rate" nolabel="1"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group col="4">
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="repair_effectiveness"/>
+                                        <br/>
+                                        <field name="repair_effectiveness"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="recycle_value_tier"/>
+                                        <br/>
+                                        <field name="recycle_value_tier"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="recycle_value_tier"/>
+                                        <br/>
+                                        <field name="recycle_value_tier"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="recycled_value_class"/>
+                                        <br/>
+                                        <field name="recycled_value_class"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group col="4">
+                                <group groups="trackedge_base.group_trackedge_view_cost">
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="repair_price"/>
+                                        <br/>
+                                        <field name="repair_price" nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group groups="trackedge_base.group_trackedge_view_cost">
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="aftermarket_buy_price"/>
+                                        <br/>
+                                        <field name="aftermarket_buy_price"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group groups="trackedge_base.group_trackedge_view_cost">
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="aftermarket_replace_price"/>
+                                        <br/>
+                                        <field name="aftermarket_replace_price"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                                <group groups="trackedge_base.group_trackedge_view_cost">
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="oem_replace_price"/>
+                                        <br/>
+                                        <field name="oem_replace_price"
+                                               nolabel="1"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group col="4">
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="value_per_kg"
+                                               invisible="1"/>
+                                        <br/>
+                                        <field name="value_per_kg" nolabel="1"
+                                               invisible="1"/>
+                                    </div>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="l3_refurb" invisible="1"/>
+                                        <br/>
+                                        <field name="l3_refurb" nolabel="1"
+                                               invisible="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="default_reuse_group"
+                                               invisible="1"/>
+                                        <br/>
+                                        <field name="default_reuse_group"
+                                               nolabel="1" invisible="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="l1_refurb" invisible="1"/>
+                                        <br/>
+                                        <field name="l1_refurb" nolabel="1"
+                                               invisible="1"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="l2_refurb" invisible="1"/>
+                                        <br/>
+                                        <field name="l2_refurb" nolabel="1"
+                                               invisible="1"/>
+                                    </div>
+                                    <div>
+                                        <label class="font-weight-bold"
+                                               for="l3_refurb" invisible="1"/>
+                                        <br/>
+                                        <field name="l3_refurb" nolabel="1"
+                                               invisible="1"/>
+                                    </div>
+                                </group>
+
+                            </group>
+                        </page>
+                        <page string="Gallery">
+                            <separator string="Layouts"/>
+                            <group>
+                                <field name="image_layout" string="Image"
+                                       widget="radio"
+                                       options="{'horizontal': true}"/>
+                                <field name="video_youtube_layout"
+                                       string="Youtube" widget="radio"
+                                       options="{'horizontal': true}"/>
+                                <field name="kanban_display_popup"/>
+                            </group>
+                            <separator string="Images"/>
+                            <field name="part_image_url" widget="image" />
+                            <field name="image_ids">
+                                <kanban class="o_kanban_mobile">
+                                    <field name="image"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                                                <a t-if="!read_only_mode"
+                                                   type="delete"
+                                                   class="pull-right">Delete
+                                                </a>
+                                                <center>
+                                                    <img t-att-src="'data:image/png;base64,'+record.image.raw_value"
+                                                         style="padding-top:24px;padding-bottom:24px;max-width:100%;"/>
+                                                </center>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <group>
+                                        <field name="image"/>
+                                    </group>
+                                </form>
+                            </field>
+                            <separator string="Youtube Videos" invisible="1"/>
+                            <field name="youtube_video_ids" invisible="1">
+                                <tree>
+                                    <field name="link"
+                                           placeholder="Youtube Embed Code .."/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="link"
+                                               placeholder="Eg. https://youtu.be/fgdz8MH2YHY"/>
+                                    </group>
+                                    <center>
+                                        <p class="text-muted">Copy the video url
+                                            from the particular youtube video ..
+                                        </p>
+                                        <img src="/product_image_multiple/static/description/01.png"
+                                             style="height:362px;border:2px solid #c2c2c2;box-shadow:0 2px 6px 2px rgba(150,150,150,0.3);opacity:0.5;"/>
+                                    </center>
+                                </form>
+                            </field>
+                        </page>
+
+                        <page string="Sales" attrs="{'invisible': 1}"
+                              name="sales">
+                            <group name="sale">
+                                <group groups="product.group_product_pricelist"
+                                       name="pricelists">
+                                    <div name="pricelist_item"
+                                         groups="product.group_product_pricelist">
+                                        <separator string="Pricing"/>
+<!--                                        <field name="item_ids" nolabel="1"-->
+<!--                                               mode="tree,kanban"-->
+<!--                                               context="{'default_base':'list_price', 'default_applied_on' :'1_product'}">-->
+<!--                                            <tree string="Pricelist Items"-->
+<!--                                                  editable="bottom">-->
+<!--                                                <field name="pricelist_id"-->
+<!--                                                       string="Pricelist"-->
+<!--                                                       required="1"/>-->
+<!--                                                <field name="currency_id"-->
+<!--                                                       invisible="1"/>-->
+<!--                                                <field name="fixed_price"-->
+<!--                                                       string="Price"-->
+<!--                                                       groups="trackedge_base.group_trackedge_view_cost"-->
+<!--                                                       required="1"-->
+<!--                                                       widget="monetary"-->
+<!--                                                       options="{'currency_field': 'currency_id'}"/>-->
+<!--                                                <field name="min_quantity"/>-->
+<!--                                                <field name="date_start"/>-->
+<!--                                                <field name="date_end"/>-->
+<!--                                                <field name="applied_on"-->
+<!--                                                       invisible="1"/>-->
+<!--                                            </tree>-->
+<!--                                            <kanban string="Pricelist Items"-->
+<!--                                                    class="o_kanban_mobile">-->
+<!--                                                <field name="pricelist_id"/>-->
+<!--                                                <field name="currency_id"/>-->
+<!--                                                <field name="fixed_price"/>-->
+<!--                                                <field name="min_quantity"/>-->
+<!--                                                <field name="date_start"/>-->
+<!--                                                <field name="date_end"/>-->
+<!--                                                <templates>-->
+<!--                                                    <t t-name="kanban-box">-->
+<!--                                                        <div t-attf-class="oe_kanban_global_click">-->
+<!--                                                            <div class="row">-->
+<!--                                                                <div class="col-12">-->
+<!--                                                                    <strong>-->
+<!--                                                                        <field name="pricelist_id"/>-->
+<!--                                                                        :-->
+<!--                                                                        <field name="fixed_price"-->
+<!--                                                                               groups="trackedge_base.group_trackedge_view_cost"-->
+<!--                                                                               widget="monetary"-->
+<!--                                                                               options="{'currency_field': 'currency_id'}"/>-->
+<!--                                                                    </strong>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                            <div class="row">-->
+<!--                                                                <div class="col-12">-->
+<!--                                                                    <span>-->
+<!--                                                                        <t t-esc="record.min_quantity.string"/>-->
+<!--                                                                        :-->
+<!--                                                                        <t t-esc="record.min_quantity.value"/>-->
+<!--                                                                    </span>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                            <span t-if="record.date_start.value || record.date_end.value">-->
+<!--                                                                <div class="row">-->
+<!--                                                                    <div class="col-12">-->
+<!--                                                                        Valid-->
+<!--                                                                        <span t-if="record.date_start.value">-->
+<!--                                                                            from-->
+<!--                                                                            <t t-esc="record.date_start.value"/>-->
+<!--                                                                        </span>-->
+<!--                                                                        <span t-if="record.date_end.value">-->
+<!--                                                                            until-->
+<!--                                                                            <t t-esc="record.date_end.value"/>-->
+<!--                                                                        </span>-->
+<!--                                                                    </div>-->
+<!--                                                                </div>-->
+<!--                                                            </span>-->
+<!--                                                        </div>-->
+<!--                                                    </t>-->
+<!--                                                </templates>-->
+<!--                                            </kanban>-->
+<!--                                            <form string="Pricelist Items">-->
+<!--                                                <h1>-->
+<!--                                                    <field name="name"/>-->
+<!--                                                </h1>-->
+<!--                                                <group>-->
+<!--                                                    <group>-->
+<!--                                                        <field name="applied_on"-->
+<!--                                                               invisible="1"/>-->
+<!--                                                        <field name="pricelist_id"-->
+<!--                                                               string="Pricelist"-->
+<!--                                                               required="1"/>-->
+<!--                                                        <field name="currency_id"-->
+<!--                                                               invisible="1"/>-->
+<!--                                                        <field name="fixed_price"-->
+<!--                                                               string="Price"-->
+<!--                                                               groups="trackedge_base.group_trackedge_view_cost"-->
+<!--                                                               required="1"-->
+<!--                                                               widget="monetary"-->
+<!--                                                               options="{'currency_field': 'currency_id'}"/>-->
+<!--                                                    </group>-->
+<!--                                                    <group>-->
+<!--                                                        <field name="min_quantity"/>-->
+<!--                                                        <field name="date_start"/>-->
+<!--                                                        <field name="date_end"/>-->
+<!--                                                    </group>-->
+<!--                                                </group>-->
+<!--                                            </form>-->
+<!--                                        </field>-->
+                                    </div>
+                                </group>
+                                <group name="email_template_and_project"
+                                       invisible="1"/>
+                            </group>
+                            <group string="Description for Customers"
+                                   name="description" invisible="1">
+                                <field name="description_sale" nolabel="1"
+                                       placeholder="This note will show up on sales orders &amp; invoices."/>
+                            </group>
+                        </page>
+                        <page string="Purchase" name="purchase"
+                              attrs="{'invisible': [('purchase_ok','=',False)]}"
+                              invisible="1">
+                            <group name="purchase">
+                                <group string="Vendor Bills" name="bill"/>
+                            </group>
+                        </page>
+                        <page string="Inventory" name="inventory"
+                              attrs="{'invisible':[('type', '=', 'service')]}">
+                            <group name="inventory">
+                                <group name="group_lots_and_weight"
+                                       string="Logistics"
+                                       attrs="{'invisible': [('type', 'not in', ['product', 'consu'])]}">
+                                    <label for="weight"/>
+                                    <div class="o_row" name="weight">
+                                        <field name="weight" string="Weight"/>
+
+                                    </div>
+
+                                    <label for="volume"/>
+                                    <div class="o_row" name="volume">
+                                        <span>
+                                            <field name="volume" string="Volume"/>
+                                            m³
+                                        </span>
+                                    </div>
+                                    <field name="responsible_id"/>
+                                </group>
+                                <group string="Operations" name="operations">
+<!--                                    <field name="stock_state_threshold"/>-->
+<!--                                    <field name="manual_stock_state_threshold"/>-->
+                                    <field name="route_ids"
+                                           widget="many2many_checkboxes"
+                                           attrs="{'invisible': [('type', 'in', ['service', 'digital'])]}"/>
+                                    <field name="route_from_categ_ids"
+                                           widget="many2many_tags" readonly="1"
+                                           attrs="{'invisible': [('route_from_categ_ids', '=', [])]}"/>
+                                    <label for="sale_delay"
+                                           attrs="{'invisible': [('sale_ok', '=', False)]}"/>
+                                    <div attrs="{'invisible': [('sale_ok', '=', False)]}">
+                                        <field name="sale_delay"
+                                               class="oe_inline"
+                                               style="vertical-align:baseline"/>
+                                        days
+                                    </div>
+                                </group>
+                                <group string="Traceability" name="traceability"
+                                       groups="stock.group_production_lot">
+                                    <field name="tracking" widget="radio"
+                                           attrs="{'invisible': [('type', 'in', ['service', 'digital'])]}"/>
+                                </group>
+                            </group>
+                            <group name="packaging" string="Packaging"
+                                   colspan="4"
+                                   attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}"
+                                   groups="product.group_stock_packaging">
+                                <field name="packaging_ids" nolabel="1"
+                                       context="{'tree_view_ref':'product.product_packaging_tree_view2', 'form_view_ref':'product.product_packaging_form_view2'}"/>
+                            </group>
+                        </page>
+                        <page name="page_pack" string="Build Kit Settings"
+                              attrs="{'invisible': ['|', ('product_variant_count', '>', 1), ('pack_ok', '=', False)]}">
+                            <group name="group_pack">
+                                <group colspan="4" col="4">
+                                    <field name="pack_type"
+                                           string="Build Kit Type"
+                                           attrs="{'required':[('pack_ok','=',True)]}"/>
+                                    <field name="pack_component_price"
+                                           string="Build kit Component Price"
+                                           attrs="{'required':[('pack_type', '=', 'detailed')], 'invisible':[('pack_type', '!=', 'detailed')]}"/>
+                                    <field name="pack_modifiable"
+                                           string="Build kit Modifiable"
+                                           attrs="{'invisible':['|', ('pack_type', '!=', 'detailed'), ('pack_component_price', '!=', 'detailed')]}"/>
+                                </group>
+                                <group string="Build kit Items" colspan="4">
+                                    <field name="id" invisible="1"/>
+                                    <p attrs="{'invisible': [('id', '!=', False)]}">
+                                        You must save first to add Build kit
+                                        lines
+                                    </p>
+                                    <group colspan="4">
+                                        <field name="pack_line_ids" nolabel="1"
+                                               attrs="{'readonly': [('id', '=', False)]}">
+                                            <tree editable='bottom'>
+                                                <field name="product_id"
+                                                       options="{'no_create_edit':True,'no_create':True,'no_open':True}"
+                                                       string="Item #"/>
+                                                <field name="lot_id"
+                                                       options="{'no_create_edit':True,'no_create':True,'no_open':True}"
+                                                       string="Serial No."/>
+                                                <field name="quantity" string="Quantity"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="spms" string="SPMS">
+                            <group>
+                                <group>
+                                    <field name="spares_criticality"
+                                           string="Spare Criticality"
+                                           widget="radio"/>
+                                    <field name="warranty_until_date"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="trackedge_view_product_template_custom_fields" model="ir.ui.view">
+        <field name="name">trackedge.view.product.template.form.dynamic.fields</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id"
+               ref="trackedge_product.trackedge_product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page[last()]" position="after">
+                <page name="custom_fields" string="Custom Fields">
+                    <group>
+                        <field name="has_custom_fields"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="trackedge_view_product_template_tree" model="ir.ui.view">
+        <field name="name">trackedge.product.product.tree</field>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <tree string="Item List" import="false" create="false"
+                  edit="false" delete="false">
+                <field name="default_code" required="1"/>
+                <field name="oem_id"/>
+                <field name="name"
+                       string="Description"
+                       widget="dynamic_popover_text"
+                       options="{'max_width': '600px', 'line_clamp': '1'}"/>
+                <field name="system_category_id" />
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="trackedge_view_product_template_search" model="ir.ui.view">
+        <field name="name">trackedge.product.template.search</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <search string="Product">
+                <field name="default_code" string="Item #"
+                       filter_domain="['|', ('default_code', 'ilike', self), ('oem_alt_part_number', 'ilike', self)]"/>
+                <field name="erp_code" string="ERP Code"
+                       filter_domain="[('erp_code', 'ilike', self)]"/>
+                <field name="erp_code2" string="ERP Code 2"
+                       filter_domain="[('erp_code2', 'ilike', self)]"/>
+                <field name="name" string="Item Description"
+                       filter_domain="[('name', 'ilike', self)]"/>
+                <field name="oem_alt_part_number" string="Alt Part#"/>
+                <separator/>
+                <field name="class_id"
+                       filter_domain="[('class_id','ilike', self)]"/>
+                <field name="category_id"
+                       filter_domain="[('category_id','ilike', self)]"/>
+                <field name="type_ids"
+                       filter_domain="[('type_ids','ilike', self)]"/>
+                <separator/>
+                <filter string="Services" name="services"
+                        domain="[('type','=','service')]"/>
+                <filter string="Products" name="product"
+                        domain="[('type', '=', 'product')]"/>
+                <filter string="Consumables" name="consumable"
+                        domain="[('type', '=', 'consu')]"/>
+                <filter name="nim_items"
+                        string="NIM Items"
+                        domain="[('remote_id', '&gt;', 0)]"/>
+                <filter name="non_nim_items"
+                        string="Non NIM Items"
+                        domain="['|', ('remote_id', '&lt;=', 0), ('remote_id', '=', False)]"/>
+                <separator/>
+                <filter string="Archived" name="inactive"
+                        domain="[('active','=',False)]"/>
+                <field string="Attributes" name="attribute_line_ids"
+                       groups="product.group_product_variant"/>
+                <group expand="0" string="Group By">
+                    <filter string="OEM" name="oem_id" domain="[]"
+                            context="{'group_by':'oem_id'}"/>
+<!--                    <filter string="Revision" name="revision_number" domain="[]"-->
+<!--                            context="{'group_by':'revision_number_ids'}"/>-->
+                    <filter string="System Category" name="system_category" domain="[]"
+                            context="{'group_by':'system_category_id'}"/>
+                    <filter string="Item Category" name="item_category" domain="[]"
+                            context="{'group_by':'category_id'}"/>
+<!--                    <filter string="Technologies" name="technologies" domain="[]"-->
+<!--                            context="{'group_by':'technology_type_ids'}"/>-->
+<!--                    <filter string="Frequencies" name="frequencies" domain="[]"-->
+<!--                            context="{'group_by':'frequency_ids'}"/>-->
+                    <filter string="Item Class" name="class" domain="[]"
+                            context="{'group_by':'class_id'}"/>
+<!--                    <filter string="Item Class Type" name="item_class_type" domain="[]"-->
+<!--                            context="{'group_by':'class_id'}"/>-->
+<!--                    <filter string="System Types" name="system_types" domain="[]"-->
+<!--                            context="{'group_by':'system_type_ids'}"/>-->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="trackedge_product_template_action_product"
+            model="ir.actions.act_window">
+        <field name="name">Item List</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="limit">20</field>
+        <field name="view_id" ref="trackedge_view_product_template_tree"/>
+        <field name="search_view_id" ref="trackedge_view_product_template_search"/>
+        <field name="context">{"search_default_product": 1, 'default_type':
+            'product'}
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new product
+            </p>
+        </field>
+    </record>
+
+<!--    <record id="trackedge_product_template_kanban_view" model="ir.ui.view">-->
+<!--        <field name="name">trackedge.product.template.form</field>-->
+<!--        <field name="model">product.template</field>-->
+<!--        <field name="inherit_id" ref="product.product_template_kanban_view"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <field name="image_small" position="replace">-->
+<!--                <field name="part_image_url" help=""/>-->
+<!--            </field>-->
+<!--            <div class="o_kanban_image" position="replace">-->
+<!--                <div class="o_kanban_image">-->
+<!--                    <field name="part_image_url" widget="image"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <!--    <menuitem action="trackedge_product_template_action_product"-->
+    <!--              id="trackedge_menu_product_template"-->
+    <!--              parent="trackedge_base.trackedge_inventory"-->
+    <!--              sequence="1"/>-->
+
+    <!-- Make sure the main menu 'items' calls the item list to avoid
+    duplication'-->
+    <menuitem id="trackedge_base.trackedge_inventory"
+              name="Item Master"
+              action="trackedge_product.trackedge_product_template_action_product"
+              sequence="6"/>
+
+    <record model="ir.ui.menu" id="trackedge_base.trackedge_inventory">
+        <field name="fa_icon">fas fa-cube</field>
+    </record>
+
+    <record id="product_template_action_product_kit"
+            model="ir.actions.act_window">
+        <field name="name">Build kit</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id"
+               ref="stock.product_template_search_form_view_stock"/>
+        <field name="domain">[('pack_ok', '=', True)]</field>
+        <field name="context">{"search_default_consumable": 1,
+            'default_type': 'product', 'default_pack_ok': 1}
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Product Kit
+            </p>
+        </field>
+    </record>
+
+    <menuitem action="product_template_action_product_kit"
+              id="trackedge_menu_product_kit"
+              parent="trackedge_base.trackedge_inventory"
+              active="False"
+              sequence="3"/>
+
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- Menus -->
+    <record model="ir.ui.menu" id="generic_request.menu_request_root">
+        <field name="name">Servicedesk</field>
+        <field name="fa_icon">fas fa-user-headset</field>
+    </record>
+
+</odoo>

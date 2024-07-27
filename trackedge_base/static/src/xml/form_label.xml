@@ -1,0 +1,9 @@
+<odoo>
+
+    <template id="assets_backend" name="trackedge_base assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link href="/trackedge_base/static/src/css/form_label.css" rel="stylesheet"/>
+        </xpath>
+    </template>
+
+</odoo>

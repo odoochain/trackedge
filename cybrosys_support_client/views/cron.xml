@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+
+<!--    <record model="ir.cron" id="helpdesk_cron">-->
+<!--        <field name="name">Generate forms</field>-->
+<!--        <field name="model_id" ref="formio.model_formio_builder"/>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="code">model._cron_helpdesk_req()</field>-->
+<!--        <field name="interval_number">1</field>-->
+<!--        <field name="interval_type">days</field>-->
+<!--        <field name="numbercall">-1</field>-->
+<!--        <field eval="False" name="doall" />-->
+<!--    </record>-->
+
+
+</odoo>

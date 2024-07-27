@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<record id="action_report_request_type" model="ir.actions.report">
+            <field name="name">Request Type Report</field>
+            <field name="model">request.type.common.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">generic_request.report_request_type</field>
+            <field name="report_file">generic_request.report_request_type</field>
+            <field name="binding_model_id" ref="model_request_type_common_report"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+	    <record id="request_type_report_view" model="ir.ui.view">
+	        <field name="name">Request Type Report</field>
+	        <field name="model">request.type.common.report</field>
+	        <field name="arch" type="xml">
+	        <form string="Report Options">
+	            <group col="4">
+	                <field name="date_from"/>
+	                <field name="date_to"/>
+	            </group>
+	            <group>
+	                <field name="request_type_ids" widget="many2many_tags" options="{'no_create': True}"/>
+	            </group>
+	            <footer>
+	                <button name="check_report" string="Print" type="object" default_focus="1" class="oe_highlight"/>
+	                <button string="Cancel" class="btn btn-secondary" special="cancel" />
+	            </footer>
+	        </form>
+	        </field>
+	    </record>
+
+	    <record id="action_request_type_reports" model="ir.actions.act_window">
+	        <field name="name">Request Type Report</field>
+	        <field name="res_model">request.type.common.report</field>
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+	    </record>
+
+	    <!-- <menuitem name="Request by Request Type"
+              id="menu_request_by_request_type"
+              parent="generic_request.menu_request_report"
+              groups="generic_request.group_request_manager"
+              action="action_request_type_reports"/> -->
+
+</odoo>
+

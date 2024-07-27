@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="trackedge_company_view_partner_form" model="ir.ui.view">
+        <field name="name">trackedge.company.res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="trackedge_base.trackedge_company_view_partner_form"/>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div/h1/field[@name='name']"
+                   position="attributes">
+                <attribute name="attrs"/>
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//sheet/group/group[2]/field[@widget='email']"
+                   position="attributes">
+                <attribute name="attrs"/>
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//notebook/page/field/form/sheet/field[@name='user_id']"
+                   position="after">
+                 <field name="is_servicedesk"/>
+                <label for="is_servicedesk"/>
+            </xpath>
+            <xpath expr="//notebook/page/field/form/sheet/group/group[2]/field[@name='email']" position="attributes">
+                <attribute name="attrs">{'required': [('is_servicedesk', '=', True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

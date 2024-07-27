@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<odoo>
+     <template id="ticket" name="My Helpdesk Tickets">
+        <t t-call="portal.portal_layout">
+            <t t-if="not tickets">
+                <p>There are currently no tickets for your account.</p>
+            </t>
+            <t t-if="tickets" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>
+                            <span class='d-none d-md-inline'>Ticket #</span>
+                        </th>
+                        <th>  <span class='d-none d-md-inline'>Ticket Type</span></th>
+                        <th class="text-right">Ticket Date</th>
+                        <th class="text-center">Created By</th>
+                        <th class="text-center">Assign To</th>
+                        <th class="text-right">Status</th>
+                    </tr>
+                </thead>
+                <t t-foreach="tickets" t-as="tick">
+                    <tr>
+
+                        <td><a t-att-href="'/web#id=%s&amp;view_type=form&amp;model=request.request' % (tick.id)"><t t-esc="tick.name"/></a></td>
+                        <td>
+                            <t t-esc="tick.type_id.name"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="tick.date_created"/>
+                        </td>
+                        <td class="text-right">
+                            <t t-if="tick.created_by_id">
+                                <span t-field="tick.created_by_id.name"/>
+                            </t>
+                        </td>
+                        <td class="text-right">
+                            <t t-if="tick.user_id">
+                                <span t-field="tick.user_id.name"/>
+                            </t>
+                        </td>
+                        <td class="text-right">
+                            <t t-if="tick.stage_type_id">
+                                <span t-if="tick.stage_type_id.code == 'new'"  class="badge badge-pill badge-success">
+                                    <i class="fa fa-fw fa-check" role="img" aria-label="Resolved" title="Received"/>Received
+                                </span>
+                                <span t-if="tick.stage_type_id.code == 'assigned'"  class="badge badge-pill badge-success">
+                                    <i class="fa fa-fw fa-check" role="img" aria-label="Support" title="Assigned"/>Assigned
+                                </span>
+                                <span t-if="tick.stage_type_id.code == 'qc-passed'"  class="badge badge-pill badge-success">
+                                    <i class="fa fa-fw fa-check" role="img" aria-label="Helpdesk" title="QC"/>QC
+                                </span>
+                                <span t-if="tick.stage_type_id.code == 'in_progress'"  class="badge badge-pill badge-success">
+                                    <i class="fa fa-fw fa-check" role="img" aria-label="draft" title="In-Progress"/>In Progress
+                                </span>
+                                <span t-if="tick.stage_type_id.code == 'uat'"  class="badge badge-pill badge-success">
+                                    <i class="fa fa-fw fa-check" role="img" aria-label="draft" title="UAT"/>UAT
+                                </span>
+                                <span t-if="tick.stage_type_id.code == 'uat-failed'"  class="badge badge-pill badge-success">
+                                    <i class="fa fa-fw fa-check" role="img" aria-label="draft" title="UAT-Failed"/>UAT Failed
+                                </span>
+                                <span t-if="tick.stage_type_id.code == 'closed'"  class="badge badge-pill badge-success">
+                                    <i class="fa fa-fw fa-check" role="img" aria-label="draft" title="Closed"/>Closed
+                                </span>
+                            </t>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

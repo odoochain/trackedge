@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!--
+        @param {web.AppsMenu} widget
+    -->
+<!--    <t t-name="AppsMenu" t-extend="AppsMenu">-->
+<!--        <t t-jquery="i.fa" t-operation="replace">-->
+<!--            <i class="fa fa-bars"/>-->
+<!--        </t>-->
+<!--        <t t-jquery="div.dropdown-menu" t-operation="replace">-->
+<!--            <div class="dropdown-menu" role="menu">-->
+<!--                <div class="sm_menu_app_summary">-->
+<!--                    <img src="/web/binary/company_logo"/>-->
+<!--                </div>-->
+<!--                <div class="sm_menu_container">-->
+<!--                    <t t-foreach="widget.getApps()" t-as="app">-->
+
+<!--                        <a role="menuitem"-->
+<!--                           class="dropdown-item o_app"-->
+<!--                           t-att-data-menu-id="app.menuID"-->
+<!--                           t-att-data-menu-xmlid="app.xmlID"-->
+<!--                           t-att-data-action-id="app.actionID">-->
+<!--                            &lt;!&ndash;<span t-att-class="'fa fa-' + (app.web_icon ? app.web_icon : 'navicon')"/>&ndash;&gt;-->
+<!--                            <span><img class="o_menu_icons" t-att-src="app.web_icon ? app.web_icon.replace(',', '/') : 'base/static/description/modules.png'"/></span>-->
+<!--                            <t t-esc="app.name"/>-->
+<!--                        </a>-->
+<!--                    </t>-->
+<!--                </div>-->
+<!--                <div class="sm_menu_app_footer">-->
+<!--                    &lt;!&ndash;Power by <b>Odoo</b>&ndash;&gt;-->
+<!--                    Copyright © 2021 <b><t t-esc="widget.getCompanyName()"/></b>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </t>-->
+<!--    </t>-->
+
+    <t t-name="web_smobile_ce.ControlPanel" owl="1">
+        <div class="o_control_panel" t-on-switch-view="_onSwitchView">
+            <!-- Mobile search view open -->
+            <Portal t-if="state.showMobileSearch" target="'body'">
+                <div class="o_searchview o_mobile_search">
+                    <div class="o_mobile_search_header">
+                        <button type="button" class="o_mobile_search_button btn" t-on-click.stop="state.showMobileSearch = false">
+                            <i class="fa fa-arrow-left"/>
+                            <strong class="ml8">BACK</strong>
+                        </button>
+                        <button type="button" class="o_mobile_search_button btn" t-on-click.stop="model.dispatch('clearQuery')">
+                            <t>CLEAR</t>
+                        </button>
+                    </div>
+                    <div class="o_mobile_search_content">
+                        <SearchBar t-if="props.withSearchBar" fields="fields"/>
+                        <!-- Additional content: searchview buttons(legacy) -->
+                        <div class="o_mobile_search_filter o_search_options" t-ref="searchViewButtons">
+                            <FilterMenu t-if="props.searchMenuTypes.includes('filter')" class="o_filter_menu" fields="fields"/>
+                            <GroupByMenu t-if="props.searchMenuTypes.includes('groupBy')" class="o_group_by_menu" fields="fields" />
+                            <ComparisonMenu t-if="props.searchMenuTypes.includes('comparison') and model.get('filters', f => f.type === 'comparison').length"
+                                            class="o_comparison_menu"/>
+                            <FavoriteMenu t-if="props.searchMenuTypes.includes('favorite')" class="o_favorite_menu"/>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary o_mobile_search_footer"
+                            t-on-click.stop="state.showMobileSearch = false">
+                        <t>SEE RESULT</t>
+                    </button>
+                </div>
+            </Portal>
+            <!-- Standard control panel display -->
+            <t t-else="">
+                <div class="o_cp_top">
+                    <ol t-if="props.withBreadcrumbs and !state.showSearchBar" class="breadcrumb" role="navigation">
+                        <t t-set="breadcrumb" t-value="props.breadcrumbs[props.breadcrumbs.length - 1]"/>
+                        <li t-if="breadcrumb" class="breadcrumb-item o_back_button btn btn-secondary" accesskey="b"
+                            t-on-click.prevent="trigger('breadcrumb_clicked', { controllerID: breadcrumb.controllerID })"/>
+                        <li class="breadcrumb-item active" t-esc="props.title"/>
+                    </ol>
+                    <!-- Additional content: searchview (legacy) -->
+                    <div class="o_cp_searchview"
+                         t-att-class="{ o_searchview_quick: state.showSearchBar or !props.withBreadcrumbs }"
+                         role="search" t-ref="searchView">
+                        <div t-if="props.withSearchBar" class="o_searchview" role="search" aria-autocomplete="list">
+                            <t t-if="!state.showMobileSearch">
+                                <button type="button" class="o_enable_searchview btn btn-link fa"
+                                        t-if="props.withBreadcrumbs"
+                                        t-att-class="state.showSearchBar ? 'fa-chevron-right' : 'fa-search'"
+                                        t-on-click.stop="state.showSearchBar = !state.showSearchBar"/>
+                                <button type="button" class="o_enable_searchview btn btn-link fa fa-chevron-right"
+                                        t-if="!props.withBreadcrumbs and !state.enableSearchView"
+                                        t-on-click.stop="state.enableSearchView = true; props.withBreadcrumbs = true; state.showSearchBar = false"/>
+                                <t t-if="state.showSearchBar or !props.withBreadcrumbs">
+                                    <SearchBar t-if="props.withSearchBar" fields="fields"/>
+                                    <button type="button" class="o_toggle_searchview_full btn fa fa-filter"
+                                            t-on-click.stop="state.showMobileSearch = !state.showMobileSearch"/>
+                                </t>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div class="o_cp_bottom">
+                    <div class="o_cp_bottom_left o_web_smobile_fab">
+                        <!-- Additional content: buttons (legacy) -->
+                        <div class="o_cp_buttons" role="toolbar" aria-label="Control panel toolbar" t-ref="buttons">
+                            <t t-slot="buttons"/>
+                        </div>
+                    </div>
+                    <div class="o_cp_bottom_right">
+                        <button t-if="env.view and env.view.type === 'calendar'"
+                                class="o_cp_today_button btn btn-sm btn-link"
+                                t-on-click="trigger('today-button-click')">
+                            <span class="fa-stack o_calendar_button_today">
+                                <i class="fa fa-calendar-o fa-stack-2x" role="img" aria-label="Today" title="Today"/>
+                                <strong class="o_calendar_text fa-stack-1x" t-esc="_getToday()"/>
+                            </span>
+                        </button>
+                        <!-- Additional content: pager (legacy) -->
+                        <div t-else="" class="o_cp_pager" role="search" t-ref="pager">
+                            <Pager t-if="props.pager and props.pager.limit" t-props="props.pager"/>
+                        </div>
+                        <nav t-if="props.views and props.views.length gt 1" class="btn-group o_cp_switch_buttons"
+                             t-att-class="{ show: state.showViewSwitcher }" role="toolbar" aria-label="View switcher">
+                            <button type="button" class="btn btn-link btn-sm"
+                                    t-attf-aria-expanded="{{ state.showViewSwitcher ? 'true' : 'false' }}"
+                                    t-on-click="state.showViewSwitcher = !state.showViewSwitcher">
+                                <span class="fa fa-lg" t-att-class="props.views.find(v => v.type === env.view.type).icon"/>
+                            </button>
+                            <ul t-if="state.showViewSwitcher" class="dropdown-menu dropdown-menu-right list-inline"
+                                t-att-class="{ show: state.showViewSwitcher }">
+                                <li t-foreach="props.views" t-as="view" t-key="view.type">
+                                    <t t-call="web.ViewSwitcherButton"/>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+        
+    <t t-name="web_smobile_ce.SearchPanel.Mobile" owl="1">
+        <!-- Mobile search -->
+        <Portal target="'body'" t-if="state.showMobileSearch">
+            <div class="o_search_panel o_searchview o_mobile_search">
+                <div class="o_mobile_search_header">
+                    <button type="button" class="o_mobile_search_button btn"
+                            t-on-click="state.showMobileSearch = false">
+                        <i class="fa fa-arrow-left"/>
+                        <strong class="ml8">FILTER</strong>
+                    </button>
+                </div>
+                <div class="o_mobile_search_content">
+                    <t t-call="web.SearchPanel"/>
+                </div>
+                <button type="button" class="btn btn-primary o_mobile_search_footer"
+                        t-on-click.stop="state.showMobileSearch = false">
+                    <t>SEE RESULT</t>
+                </button>
+            </div>
+        </Portal>
+        <!-- Summary header -->
+        <div t-else="" class="o_search_panel o_search_panel_summary" t-on-click="state.showMobileSearch = true">
+            <t t-set="categories" t-value="_getCategorySelection()"/>
+            <t t-set="filters" t-value="_getFilterSelection()"/>
+            <div class="d-flex align-items-center">
+                <i class="fa fa-fw fa-filter"/>
+                <div class="o_search_panel_current_selection text-truncate ml-2 mr-auto">
+                    <t t-if="!categories.length and !filters.length">All</t>
+                    <t t-else="">
+                        <span t-foreach="categories" t-as="category" t-key="category.id"
+                            class="o_search_panel_category mr-1"
+                            >
+                            <i t-if="category.icon"
+                                t-attf-class="o_search_panel_section_icon fa {{ category.icon }} mr-1"
+                                t-att-style="category.color and ('color: ' + category.color)"
+                            />
+                            <t t-esc="category.values.join('/')"/>
+                        </span>
+                        <span t-foreach="filters" t-as="filter" t-key="filter.id"
+                              class="o_search_panel_filter mr-1">
+                            <i t-if="filter.icon"
+                               t-attf-class="o_search_panel_section_icon fa {{ filter.icon }} mr-1"
+                               t-att-style="filter.color and ('color: ' + filter.color)"/>
+                            <t t-esc="filter.values.join(', ')"/>
+                        </span>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

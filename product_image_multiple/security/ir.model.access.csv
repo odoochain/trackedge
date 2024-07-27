@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_template_image_base_group_user,product.template.image Employee,product_image_multiple.model_product_template_image,base.group_user,1,1,1,1
+access_product_template_youtube_video_base_group_user,product.template.youtube.video Employee,product_image_multiple.model_product_template_youtube_video,base.group_user,1,1,1,1
+

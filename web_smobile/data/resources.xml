@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="web_smobile" name="Lyosa Web" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/web_smobile/static/src/scss/styles.scss"/>
+<!--                <script type="text/javascript" src="/web_smobile/static/src/js/app_menu.js"></script>-->
+<!--                <script type="text/javascript" src="/web_smobile/static/src/js/menu.js"></script>-->
+                <script type="text/javascript" src="/web_smobile/static/src/js/search_panel.js"></script>
+                <script type="text/javascript" src="/web_smobile/static/src/js/search_panel_mobile.js"></script>
+                <script type="text/javascript" src="/web_smobile/static/src/js/kanban_controller.js"></script>
+                <script type="text/javascript" src="/web_smobile/static/src/js/list_controller.js"></script>
+                <script type="text/javascript" src="/web_smobile/static/src/js/form_controller.js"></script>
+                <script type="text/javascript" src="/web_smobile/static/src/js/pivot_controller.js"></script>
+                <script type="text/javascript" src="/web_smobile/static/src/js/input_fields.js"></script>
+            </xpath>
+       </template>
+        <template inherit_id="web.assets_common" name="Lyosa Web Assets Common" id="web_smobile_community_assets_common">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/web_smobile/static/src/scss/datetime_widget.scss"/>
+                <link rel="stylesheet" type="text/scss" href="/web_smobile/static/src/scss/common_styles.scss"/>
+            </xpath>
+        </template>
+        <template id="lyosa_theme" name="Lyosa Theme" inherit_id="web._assets_primary_variables">
+            <xpath expr="//link[1]" position="after">
+                <link rel="stylesheet" type="text/scss" href="/web_smobile/static/src/scss/theme.scss"/>
+            </xpath>
+       </template>
+    </data>
+</odoo>

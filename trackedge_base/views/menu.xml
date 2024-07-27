@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Top menu item -->
+<!--    <menuitem id="trackedge_inventory"-->
+<!--              name="Items"-->
+<!--              web_icon="trackedge_base,static/description/icons/Inventory.png"-->
+<!--              groups="trackedge_base.group_trackedge_view_item_master"-->
+<!--              sequence="6"/>-->
+
+    <menuitem id="trackedge_setup"
+              name="Setup"
+              groups="trackedge_base.group_trackedge_setup"
+              web_icon="trackedge_base,static/description/icons/Setup Icon.png"
+              sequence="499"/>
+
+<!--    <record model="ir.ui.menu" id="trackedge_base.trackedge_setup">-->
+<!--        <field name="fa_icon">fal fa-tools</field>-->
+<!--    </record>-->
+
+    <menuitem id="trackedge_item_attributes"
+              parent="trackedge_base.trackedge_setup"
+              name="Item Attributes"
+              sequence="999"/>
+
+<!--    <menuitem id="trackedge_setup_config"-->
+<!--              parent="trackedge_base.trackedge_setup"-->
+<!--              name="Configuration"-->
+<!--              sequence="1000"/>-->
+
+    <menuitem id="base.menu_administration"
+              name="Settings"
+              groups="base.group_system"
+              web_icon="trackedge_base,static/description/icons/Settings Icon.png"/>
+
+    <record model="ir.ui.menu" id="base.menu_administration">
+        <field name="fa_icon">far fa-cog</field>
+    </record>
+
+    <menuitem id="base.menu_management"
+              name="Apps"
+              groups="base.group_system,base.group_no_one"
+              web_icon="trackedge_base,static/description/icons/Apps Icon.png"/>
+
+    <record model="ir.ui.menu" id="base.menu_management">
+        <field name="fa_icon">fas fa-save</field>
+    </record>
+
+    <record model="ir.ui.menu" id="contacts.menu_contacts">
+        <field name="fa_icon">fas fa-address-book</field>
+    </record>
+</odoo>

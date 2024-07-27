@@ -1,0 +1,130 @@
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h2 class="oe_slogan" style="color:#875A7B;"><b>Forms | Storage Filestore</h2>
+    <h3 class="oe_slogan">File storage in Odoo filestore as attachments</h3>
+    <h3 class="oe_slogan">
+      <small>Store file uploads (authenticated, public) in Forms as its attachments</small>
+    </h3>
+    <div class="oe_row">
+      <h5>Installation Requirements</h5>
+      <ul>
+        <li>Forms (<code>formio</code>) module version >= 8.15</li>
+        <li>
+          PyPi package <code>formio-data</code> version >= 0.3.8<br/>
+          <code>pip3 install -U formio-data</code>
+        </li>
+      </ul>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+  <div class="oe_row oe_spaced">
+    <h2 class="oe_slogan" style="color:#875A7B;">Form Builder</h2>
+    <div class="oe_row_img oe_centered">
+      <h4 class="oe_mb16 text-center">Configure (default) JS Options</h4>
+      <img class="oe_demo oe_picture oe_screenshot" src="formio_builder_js_options.png">
+    </div>
+    <div class="oe_row_img oe_centered">
+      <h4 class="oe_mb16 text-center">Add and configure File Component</h4>
+      <img class="oe_demo oe_picture oe_screenshot" src="formio_builder_file_component.png">
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h2 class="oe_slogan" style="color:#875A7B;">Form</h2>
+    <div class="oe_row_img oe_centered">
+      <h4 class="oe_mb16 text-center">File component - Upload single or multiple files</h4>
+      <img class="oe_demo oe_picture oe_screenshot" src="formio_form_file_multiple_uploads.png">
+    </div>
+    <div class="oe_row_img oe_centered">
+      <h4 class="oe_mb16 text-center">File upload(s) stored as Attachments</h4>
+      <img class="oe_demo oe_picture oe_screenshot" src="formio_form_attachments.png">
+    </div>
+  </div>
+</section>
+
+<section class="oe_container oe_dark">
+  <div class="oe_row oe_centeralign mb16">
+    <h4>Visit the online Demo</h4>
+    <p>Click the <strong>Live Preview</strong> button in the top.</p>
+    <p class="mt8"><strong>Users</strong> (email / password)</p>
+    <ul>
+      <li>demo / demo</li>
+      <li>portal / portal</li>
+    </ul>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h2 class="oe_slogan" style="color:#875A7B;">Releases</h2>
+    <h4 class="oe_mb16">0.10</h4>
+    <ul>
+      <li>
+        Fix: <code>ValueError Expected singleton: formio.form()</code>, when <code>write</code> on multi recordset.
+      </li>
+    </ul>
+    <h4 class="oe_mb16">0.9</h4>
+    <ul>
+      <li>
+        Fix: file component inside datagrid, attachment not linked with formio.form<br/>
+        (issue: <code>https://github.com/novacode-nl/odoo-formio/issues/165</code>)
+      </li>
+      <li>
+        Improve attachment(s) check to allow unlink.
+      </li>
+    </ul>
+    <h4 class="oe_mb16">0.8</h4>
+    <ul>
+      <li>
+        Fix: Wizard (mode) doesn't store/link the <code>ir.attachment</code> properly.<br/>
+        (issue: <code>https://github.com/novacode-nl/odoo-formio/issues/149</code>)
+      </li>
+    </ul>
+    <h4 class="oe_mb16">0.7</h4>
+    <ul>
+      <li>
+        Fix: Deletion of other attachments was impossible due to a rigorous record rule, introduced in 0.4<br/>
+        - Removed the Record Rule (XML ID): <code>ir_attachment_unlink_formio_form_storage_filestore</code><br/>
+        - Implement <code>unlink</code> method in the <code>ir.attachment</code> model, which raises an error (message) upon deletion of attachments beloning to submitted Form(s).<br/>
+        - Implement <code>unlink</code> method in the <code>formio.form</code> model, which handles (kinda) cascade deletion of attachments upon deleting Form(s).
+      </li>
+    </ul>
+    <h4 class="oe_mb16">0.6</h4>
+    <ul>
+      <li>
+        Improvement: Only process a Form its filestore/attachments upon saving submission data.
+      </li>
+    </ul>
+    <h4 class="oe_mb16">0.5</h4>
+    <ul>
+      <li>
+        Fix: Upon write of Form only delete orphaned attachments/files concerning this module.
+      </li>
+    </ul>
+    <h4 class="oe_mb16">0.4</h4>
+    <ul>
+      <li>
+        Add record rule: Files in completed Forms cannot be deleted.<br/>
+        This ensures uploaded files (in a completed Form) cannot be deleted.
+      </li>
+    </ul>
+    <h4 class="oe_mb16">0.3</h4>
+    <ul>
+      <li>
+        Security measurement for public POST request, checking the Formio baseUrl (UUID).<br/>
+        Because CSRF is disabled (needed) for this endpoint.
+      </li>
+    </ul>
+    <h4 class="oe_mb16">0.2</h4>
+    <ul>
+      <li>Scheduled action (daily cron) which deletes pending Attachments (e.g. file uploads) for Forms never submitted.</li>
+    </ul>
+    <h4 class="oe_mb16">0.1</h4>
+    <ul>
+      <li>Initial draft release.</li>
+    </ul>
+  </div>
+</section>
