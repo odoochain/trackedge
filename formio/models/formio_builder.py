@@ -485,11 +485,11 @@ class Builder(models.Model):
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
         forms = self.search(args, limit=limit)
-        not_allowed_forms = self
-        for form in forms:
-            if form.allowed_group_ids and self.env.user.groups_id:
-                exists = [x for x in form.allowed_group_ids.ids if x in self.env.user.groups_id.ids]
-                if not exists:
-                    not_allowed_forms += form
-        forms = forms - not_allowed_forms
+        # not_allowed_forms = self
+        # for form in forms:
+        #     if form.allowed_group_ids and self.env.user.groups_id:
+        #         exists = [x for x in form.allowed_group_ids.ids if x in self.env.user.groups_id.ids]
+        #         if not exists:
+        #             not_allowed_forms += form
+        # forms = forms - not_allowed_forms
         return forms.name_get()

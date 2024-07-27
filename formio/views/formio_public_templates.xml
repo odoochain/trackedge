@@ -98,11 +98,11 @@ See LICENSE file for full licensing details. -->
                             text-align: center;
                             margin-top: 1%;">
 <!--                        class="raven-site-logo-desktop raven-site-logo-tablet raven-site-logo-mobile formio_form_title_img"-->
-                        <img src="https://trackedgetechnologies.com/images/tetlogo1blue.jpg"
-                             alt="Trackedge"
-                             class="formio_form_title_img"
-                             data-no-lazy="1"
-                             style=" width: 20% align-items: center; margin: auto; text-align: center; align-content: center;"/>
+<!--                        <img src="https://trackedgetechnologies.com/images/tetlogo1blue.jpg"-->
+<!--                             alt="Trackedge"-->
+<!--                             class="formio_form_title_img"-->
+<!--                             data-no-lazy="1"-->
+<!--                             style=" width: 20% align-items: center; margin: auto; text-align: center; align-content: center;"/>-->
                     </div>
                     <h3 t-if="builder.show_form_title" class="formio_form_title"><span name="title" t-esc="builder.title"/></h3>
                 </t>
