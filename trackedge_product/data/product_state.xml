@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <record id="product_state_untested" model="product.state">
+      <field name="code">untested</field>
+      <field name="name">Untested</field>
+      <field name="sequence">1</field>
+    </record>
+    <record id="product_state_tested_ok" model="product.state">
+      <field name="code">tested_ok</field>
+      <field name="name">Tested OK</field>
+      <field name="sequence">2</field>
+    </record>
+    <record id="product_state_inherit" model="product.state">
+      <field name="code">inherit</field>
+      <field name="name">Inherit</field>
+      <field name="sequence">3</field>
+      <field name="inherit_from_previous">True</field>
+    </record>
+<!--    <record id="product_state_faulty" model="product.state">-->
+<!--      <field name="code">faulty</field>-->
+<!--      <field name="name">Faulty</field>-->
+<!--      <field name="sequence">3</field>-->
+<!--    </record>-->
+<!--    <record id="product_state_ber" model="product.state">-->
+<!--      <field name="code">ber</field>-->
+<!--      <field name="name">BER</field>-->
+<!--      <field name="sequence">4</field>-->
+<!--    </record>-->
+<!--    <record id="product_state_repaired_ok" model="product.state">-->
+<!--      <field name="code">repaired_ok</field>-->
+<!--      <field name="name">Repaired OK</field>-->
+<!--      <field name="sequence">5</field>-->
+<!--    </record>-->
+  </data>
+</odoo>

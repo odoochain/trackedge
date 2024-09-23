@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--        <record id="add_shipping_receiving_heldesk_config" model="ir.ui.view">-->
+<!--            <field name="name">Inheritance In NPS Routines</field>-->
+<!--            <field name="model">res.config.settings</field>-->
+<!--            <field name="inherit_id"-->
+<!--                   ref="ims_base.routines_res_config_settings_view_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//div[@id='nps_routines']" position="after">-->
+<!--                    <div id="shipping_receiving_heldesk_settings">-->
+<!--                        <h2>Helpdesk - Receiving -Shipping Settings</h2>-->
+<!--                        <div class="row mt16 o_settings_container" name="require_hd_receiving">-->
+<!--                            <div class="col-12 col-lg-6 o_setting_box"-->
+<!--                                id="only_create_receiving_request_via_helpdesk">-->
+<!--                                <div class="o_setting_left_pane">-->
+<!--                                    <field name="only_create_receiving_request_via_helpdesk"/>-->
+<!--                                </div>-->
+<!--                                <div class="o_setting_right_pane">-->
+<!--                                    <label for="only_create_receiving_request_via_helpdesk"/>-->
+<!--                                    <div class="text-muted">-->
+<!--                                        <p>To Create a Receiving Request, User needs to create a ticket on Servicedesk and-->
+<!--                                            NPS will automatically create a draft request linked to the ticket.-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            User will not be able to create a Receiving Request Via Receiving Menu.-->
+<!--                                        </p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-12 col-lg-6 o_setting_box"-->
+<!--                                id="only_create_shipping_request_via_helpdesk">-->
+<!--                                <div class="o_setting_left_pane">-->
+<!--                                    <field name="only_create_shipping_request_via_helpdesk"/>-->
+<!--                                </div>-->
+<!--                                <div class="o_setting_right_pane">-->
+<!--                                    <label for="only_create_shipping_request_via_helpdesk"/>-->
+<!--                                    <div class="text-muted">-->
+<!--                                        <p>To Create a Shipping Request, User needs to create a ticket on Servicedesk and-->
+<!--                                            NPS will automatically create a draft request linked to the ticket.-->
+<!--                                        </p>-->
+<!--                                        <p>-->
+<!--                                            User will not be able to create a Shipping Request Via Shipping Menu.-->
+<!--                                        </p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

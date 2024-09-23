@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="request_view_formio_builder_form" model="ir.ui.view">
+        <field name="model">formio.builder</field>
+        <field name="inherit_id" ref="formio.view_formio_builder_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="request_category_id"
+                       options="{'no_create': true, 'no_quick_create': true}"/>
+                <field name="request_type_id"
+                       domain="[('start_stage_id', '!=', False), ('category_ids', '=', request_category_id)]"
+                       options="{'no_create': true, 'no_quick_create': true}"/>
+                <field name="default_user_id"
+                       options="{'no_create': true, 'no_quick_create': true}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

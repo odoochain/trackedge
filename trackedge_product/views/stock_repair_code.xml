@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="view_stock_repair_code_tree" model="ir.ui.view">
+        <field name="name">stock.repair.code.tree</field>
+        <field name="model">stock.repair.code</field>
+        <field name="arch" type="xml">
+            <tree string="Repair Code">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_stock_repair_code_form" model="ir.ui.view">
+        <field name="name">stock.repair.code.form</field>
+        <field name="model">stock.repair.code</field>
+        <field name="arch" type="xml">
+            <form string="Repair Code">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                        <field name="action_taken"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_stock_repair_code">
+        <field name="name">Repair Code</field>
+        <field name="res_model">stock.repair.code</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        name="Repair Codes"
+        id="stock_repair_code"
+        action="action_stock_repair_code"
+        parent="trackedge_base.trackedge_item_attributes"
+        sequence="12"/>
+
+</odoo>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="item_frequency_form_view" model="ir.ui.view">
+            <field name="name">Item Frequency Form View</field>
+            <field name="model">item.frequency</field>
+            <field name="arch" type="xml">
+                <form string="Item Frequency Form View">
+                    <header>
+                        <field name="state" clickable="True" widget="statusbar"
+                               statusbar_visible="active,validated,pending"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <label for="description"/>
+                                <div>
+                                    <field name="description"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="report_label"/>
+                            </group>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="item_frequency_tree_view" model="ir.ui.view">
+            <field name="name">Item Frequency Tree View</field>
+            <field name="model">item.frequency</field>
+            <field name="arch" type="xml">
+                <tree string="Item Frequency Tree View">
+                    <field name="name"/>
+                    <field name="report_label"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="item_frequency_search_view" model="ir.ui.view">
+            <field name="name">Item Frequency Search View</field>
+            <field name="model">item.frequency</field>
+            <field name="arch" type="xml">
+                <search string="Item Frequency Search View">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        <record id="item_frequency_view_action" model="ir.actions.act_window">
+            <field name="name">Item Frequency</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">item.frequency</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    New Item
+                </p>
+            </field>
+        </record>
+        <menuitem id="item_frequency"
+                  parent="trackedge_base.trackedge_item_attributes"
+                  name="Frequencies"
+                  action="item_frequency_view_action"
+                  active="False"
+                  sequence="5"/>
+
+    </data>
+</odoo>

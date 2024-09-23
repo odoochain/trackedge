@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="trackedge_product_uom_tree_view" model="ir.ui.view">
+        <field name="name">trackedge.uom.uom.tree</field>
+        <field name="model">uom.uom</field>
+        <field eval="1" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Units of Measure">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="uom_type"/>
+            </tree></field>
+    </record>
+    <record id="trackedge_product_uom_form_view" model="ir.ui.view">
+        <field name="name">trackedge.uom.uom.form</field>
+        <field name="model">uom.uom</field>
+        <field eval="1" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Units of Measure">
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="category_id"/>
+                        <field name="uom_type"/>
+                        <field digits="[42,5]" invisible="uom_type != 'smaller'" name="factor" readonly="uom_type == 'bigger'"/>
+                        <field digits="[42,5]" invisible="uom_type != 'bigger'" name="factor_inv" readonly="uom_type != 'bigger'" string="Ratio"/>
+                        <p class="oe_grey" colspan="2" invisible="uom_type != 'smaller'">
+                            e.g: 1 * (reference unit) = ratio * (this unit)
+                        </p>
+                        <p class="oe_grey" colspan="2" invisible="uom_type != 'bigger'">
+                            e.g: 1 * (this unit) = ratio * (reference unit)
+                        </p>
+                    </group>
+                    <group>
+                        <field name="active"/>
+                        <field digits="[42, 5]" name="rounding"/>
+                    </group>
+                </group>
+            </form></field>
+    </record>
+    <record id="trackedge_product_uom_form_action" model="ir.actions.act_window">
+        <field name="name">UoM</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">uom.uom</field>
+        <field name="limit">20</field>
+        <field name="view_id" ref="trackedge_product_uom_tree_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new unit of measure
+            </p>
+            <p>
+                You must define a conversion rate between several Units of
+                Measure within the same category.
+            </p></field>
+    </record>
+    <menuitem id="trackedge_menu_uom_main" name="Units of Measure" parent="trackedge_base.trackedge_item_attributes" sequence="8"/>
+    <menuitem action="trackedge_product_uom_form_action" id="trackedge_menu_uom" name="UoM" parent="trackedge_menu_uom_main" sequence="1"/>
+</odoo>

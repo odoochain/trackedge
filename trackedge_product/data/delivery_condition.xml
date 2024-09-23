@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+	<record id="delivery_condition_good" model="delivery.condition">
+        <field name="name">Z</field>
+        <field name="description">Good</field>
+        <field name="appearance_performance">Qty of packages match D/N or Waybill, Packaging fully in tact</field>
+    </record>
+    <record id="delivery_condition_acceptable" model="delivery.condition">
+        <field name="name">Y</field>
+        <field name="description">Acceptable</field>
+        <field name="appearance_performance">Qty of packages match D/N or Waybill, Packaging shows handling marks, still in tact</field>
+    </record>
+    <record id="delivery_condition_questionable" model="delivery.condition">
+        <field name="name">X</field>
+        <field name="description">Questionable</field>
+        <field name="appearance_performance">Qty of packages match D/N or Waybill, Packaging has visible damage, contents appear in tact</field>
+    </record>
+    <record id="delivery_condition_w_not_acceptable" model="delivery.condition">
+        <field name="name">W</field>
+        <field name="description">N/A Qty Mismatch</field>
+        <field name="appearance_performance">Qty of packages does not match D/N or Waybill, Packaging in tact</field>
+    </record>
+    <record id="delivery_condition_v_not_acceptable" model="delivery.condition">
+        <field name="name">V</field>
+        <field name="description">N/A Item Damaged</field>
+        <field name="appearance_performance">Qty of packages match D/N or Waybill, Packaging has visible damage, contents appear damaged</field>
+    </record>
+
+</odoo>

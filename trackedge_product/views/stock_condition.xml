@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="view_stock_condition_tree" model="ir.ui.view">
+        <field name="name">stock.condition.tree</field>
+        <field name="model">stock.condition</field>
+        <field name="arch" type="xml">
+            <tree string="Item Condition">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="appearance_performance"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_stock_condition_form" model="ir.ui.view">
+        <field name="name">stock.condition.form</field>
+        <field name="model">stock.condition</field>
+        <field name="arch" type="xml">
+            <form string="Item Condition">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="appearance_performance"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_stock_condition">
+        <field name="name">Item Condition</field>
+        <field name="res_model">stock.condition</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        name="Item Conditions"
+        id="stock_condition"
+        action="action_stock_condition"
+        parent="trackedge_base.trackedge_item_attributes"
+        sequence="10"/>
+
+</odoo>

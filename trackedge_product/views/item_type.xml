@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="item_type_form_view" model="ir.ui.view">
+            <field name="name">Item Type Form View</field>
+            <field name="model">item.type</field>
+            <field name="arch" type="xml">
+                <form string="Item Type Form View">
+                    <header>
+                        <field name="state" clickable="True" widget="statusbar"
+                               statusbar_visible="active,validated,pending"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <label for="description"/>
+                                <div>
+                                    <field name="description"/>
+                                </div>
+                            </group>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="item_type_tree_view" model="ir.ui.view">
+            <field name="name">Item Type Tree View</field>
+            <field name="model">item.type</field>
+            <field name="arch" type="xml">
+                <tree string="Item Type Tree View">
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="item_type_search_view" model="ir.ui.view">
+            <field name="name">Item Type Search View</field>
+            <field name="model">item.type</field>
+            <field name="arch" type="xml">
+                <search string="Item Type Search View">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+<!--        <record id="item_type_view_action" model="ir.actions.act_window">-->
+<!--            <field name="name">Item Type</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">item.type</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--            <field name="help" type="html">-->
+<!--                <p class="o_view_nocontent_smiling_face">-->
+<!--                    New Item-->
+<!--                </p>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--        <menuitem id="item_type"-->
+<!--                  name="Item Type"-->
+<!--                  parent="trackedge_product.trackedge_menu_classification"-->
+<!--                  action="item_type_view_action"-->
+<!--                  active="False"-->
+<!--                  sequence="3"/>-->
+    </data>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="request_wizard_close_form_view" model="ir.ui.view">
+        <field name="model">request.wizard.close</field>
+        <field name="arch" type="xml">
+            <form>
+                <field invisible="1" name="request_id"/>
+                <field invisible="1" name="require_response"/>
+                <sheet>
+                    <field context="{'name_only': True}" name="close_route_id" options="{'no_create': True, 'no_quick_create': True}"/>
+                    <notebook>
+                        <page name="response" string="Response">
+                            <field colspan="4" name="response_text" placeholder="Response..." required="require_response == True"/>
+                        </page>
+                        <page invisible="reopen == False" name="reopen_as" string="Reopen as">
+                            <field invisible="1" name="reopen"/>
+                            <group>
+                                <field name="new_request_category_id" options="{'no_create': true, 'no_quick_create': true}"/>
+                                <field name="new_request_type_id" options="{'no_create': true, 'no_quick_create': true}" required="reopen == True"/>
+                            </group>
+                            <separator/>
+                            <field name="new_request_text" required="reopen == True"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button class="btn-primary" name="action_close_request" string="Close" type="object"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form></field>
+    </record>
+    <record id="action_request_wizard_close" model="ir.actions.act_window">
+        <field name="name">Close</field>
+        <field name="res_model">request.wizard.close</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

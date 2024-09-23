@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+	<record id="stock_condition_excellent" model="stock.condition">
+        <field name="name">A</field>
+        <field name="description">Excellent</field>
+        <field name="appearance_performance">As New or New in Box</field>
+    </record>
+    <record id="stock_condition_very_good" model="stock.condition">
+        <field name="name">B</field>
+        <field name="description">Very Good</field>
+        <field name="appearance_performance">Slight marking visible, functionally OK</field>
+    </record>
+    <record id="stock_condition_good" model="stock.condition">
+        <field name="name">C</field>
+        <field name="description">Good</field>
+        <field name="appearance_performance">Cosmetic Marking e.g. some general discoloration, color coding, labels or tag discoloration. Functionally OK</field>
+    </record>
+    <record id="stock_condition_fair" model="stock.condition">
+        <field name="name">D</field>
+        <field name="description">Fair</field>
+        <field name="appearance_performance">Cosmetic Damage, e.g. cracked covers, casing dents, light rust residue, painted, technical operation not impacted. Functionally OK, can be repaired</field>
+    </record>
+    <record id="stock_condition_poor_ber" model="stock.condition">
+        <field name="name">E</field>
+        <field name="description">Poor/BER</field>
+        <field name="appearance_performance">Mechanical / Electric Damage (internal or external), Likely to impact use  /operation (potentially BER)</field>
+    </record>
+<!--    <record id="stock_condition_unknown" model="stock.condition">-->
+<!--        <field name="name">F</field>-->
+<!--        <field name="description">Unknown</field>-->
+<!--        <field name="appearance_performance">Unknown</field>-->
+<!--    </record>-->
+</odoo>

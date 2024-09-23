@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+ <t t-name="systray_icon" owl="1">
+     <Dropdown>
+         <t t-set-slot="toggler">
+             <div class="new_icon">
+                  <div class="icon_div">
+                      <div class="toggle-icon" role="button">
+                          <t t-log="state.weather"/>
+                          <i id='create_order' t-on-click="_onClick"
+                             class="fa-lg fas fa-question-circle"
+                             style="color: white; margin-bottom:10px;"
+                             role="img" aria-label="weather notification"/>
+                      </div>
+                  </div>
+              </div>
+         </t>
+     </Dropdown>
+ </t>
+</templates>

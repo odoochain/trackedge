@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="report_request_type">
+		<t t-call="web.html_container">
+			<t t-set="data_report_margin_top" t-value="12"/>
+			<t t-set="data_report_header_spacing" t-value="9"/>
+			<t t-set="data_report_dpi" t-value="110"/>
+			<!-- <t t-foreach="docs" t-as="o"> -->
+				<t t-call="web.external_layout">
+					<div class="page">
+						<h2 class="mt16">Reuests by Request Type</h2>
+						<div class="row mt32 mb32" id="informations">
+							<div class="col-auto col-3 mw-100 mb-2">
+			                    <strong>Date From:</strong>
+			                    <p class="m-0" t-esc="data['form']['date_from'] or ''"/>
+			                </div>
+			                <div class="col-auto col-3 mw-100 mb-2">
+			                    <strong>Date To:</strong>
+			                    <p class="m-0" t-esc="data['form']['date_to'] or ''"/>
+			                </div>
+						</div>
+						<table class="table table-sm o_main_table">
+							<thead style="display: table-row-group">
+			                    <tr>
+			                        <th name="th_request_type">Request Type</th>
+			                        <th name="th_incoming_tickets" class="text-center">Incoming Tickets</th>
+			                        <th name="th_completed_tickets" class="text-center">Completed Tickets</th>
+			                        <th name="th_max_time" class="text-center">Max Time Taken to complete</th>
+			                        <th name="th_min_time" class="text-center">Min Time to Taken</th>
+			                        <th name="th_avg_time" class="text-center">Avg Time to Taken
+			                        </th>
+			                    </tr>
+			                </thead>
+			                <tbody class="sale_tbody">
+			                	<t t-foreach="docs" t-as="doc">
+			                		<t t-foreach="lines[doc.id]" t-as="request">
+			                			<tr>
+			                				<td name="td_request_type"><span t-esc="doc.name"/></td>
+			                				<td name="td_incoming_tickets" class="text-center"><span t-esc="request['open_tickets']"/></td>
+			                				<td name="td_completed_tickets" class="text-center"><span t-esc="request['close_tickets']"/></td>
+			                				<td name="td_max_time" class="text-center"></td>
+			                				<td name="td_min_time" class="text-center"></td>
+			                				<td name="td_avg_time" class="text-center"></td>
+			                			</tr>
+									</t>
+			                	</t>
+			                </tbody>
+						</table>
+
+					</div>
+				</t>
+			<!-- </t> -->
+		</t>
+	</template>
+
+</odoo>

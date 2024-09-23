@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Map View -->
+<!--    <record id="view_request_request_map_marker_color" model="ir.ui.view">-->
+<!--        <field name="name">view.request.request.map Marker Color</field>-->
+<!--        <field name="model">request.request</field>-->
+<!--        <field name="priority">1000</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <google_map class="o_stock_warehouse_map" color="marker_color" lat="location_latitude" library="geometry" lng="location_longitude" string="Map">-->
+<!--                <field name="id"/>-->
+<!--                <field name="location_latitude"/>-->
+<!--                <field name="location_longitude"/>-->
+<!--                <field name="display_name"/>-->
+<!--                <field name="phone"/>-->
+<!--                <field name="street"/>-->
+<!--                <field name="street2"/>-->
+<!--                <field name="zip"/>-->
+<!--                <field name="city"/>-->
+<!--                <field name="country_id"/>-->
+<!--                <field name="mobile"/>-->
+<!--                <field name="marker_color"/>-->
+<!--                <templates>-->
+<!--                    <t t-name="kanban-box">-->
+<!--                        <div class="oe_kanban_global_click o_res_partner_kanban">-->
+<!--                            <div class="o_kanban_image">-->
+<!--                                &lt;!&ndash;                                <t t-if="record.image_small.raw_value">&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    <img t-att-src="kanban_image('material.request', 'image_small', record.id.raw_value)"/>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                </t>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                <t t-if="!record.image_small.raw_value">&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    <img t-att-src='_s + "/base/static/src/img/avatar.png"'/>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                </t>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="oe_kanban_details">-->
+<!--                                <strong class="o_kanban_record_title oe_partner_heading">-->
+<!--                                    <field name="display_name"/>-->
+<!--                                    <br/>-->
+<!--                                </strong>-->
+<!--                                <p>-->
+<!--                                    <span t-if="record.created_by_id.raw_value">-->
+<!--                                        Creator:-->
+<!--                                        <field name="created_by_id"/>-->
+<!--                                    </span>-->
+<!--                                    <br/>-->
+<!--                                    <span t-if="record.user_id.raw_value">-->
+<!--                                        Assigned:-->
+<!--                                        <field name="user_id"/>-->
+<!--                                    </span>-->
+<!--                                    <br/>-->
+<!--                                    <span>-->
+<!--                                        Stage:-->
+<!--                                        <field name="stage_type_id"/>-->
+<!--                                    </span>-->
+<!--                                    <br/>-->
+<!--                                    <span t-if="record.date_created.raw_value">-->
+<!--                                        Date:-->
+<!--                                        <field name="date_created"/>-->
+<!--                                    </span>-->
+<!--                                </p>-->
+<!--                                <div class="oe_kanban_partner_links"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </t>-->
+<!--                </templates>-->
+<!--            </google_map></field>-->
+<!--    </record>-->
+    <!-- form view -->
+    <record id="dsk_servicedesk_support_form_view" model="ir.ui.view">
+        <field name="name">DSK Servicedesk form</field>
+        <field name="model">request.request</field>
+        <field name="inherit_id" ref="generic_request.view_request_request_form"/>
+        <field eval="1" name="priority"/>
+        <field name="arch" type="xml">
+            <group name="group_info_right" position="after">
+                <group name="main">
+                    <group>
+                        <field invisible="1" name="active"/>
+                        <field name="priority" required="1"/>
+                        <field name="criticality"/>
+                        <!--                        <field name="sla_level_id"-->
+                        <!--                               string="Helpdesk SLA"/>-->
+                    </group>
+                    <!-- Right Column -->
+                    <group>
+                        <field name="user_id"/>
+                        <field name="warehouse_id" options="{'no_create': True}"/>
+                        <field invisible="1" name="tt_no"/>
+                        <field domain="[('active', '=', True)]" invisible="1" name="category_id"/>
+                    </group>
+                </group>
+            </group>
+            <notebook position="inside">
+                <page name="stock_picks" string="Orders">
+                    <field context="{'default_pick_type': 'outgoing'}" name="picking_ids" readonly="0">
+                        <tree default_order="id asc">
+                            <field name="name"/>
+                            <field groups="stock.group_stock_multi_locations" name="location_id"/>
+                            <field groups="stock.group_stock_multi_locations" name="location_dest_id"/>
+                            <field name="date"/>
+                            <field name="state"/>
+                            <field column_invisible="1" name="scheduled_date"/>
+                            <field column_invisible="1" name="origin"/>
+                            <field column_invisible="1" name="group_id"/>
+                            <field column_invisible="1" name="priority"/>
+                            <field column_invisible="1" name="picking_type_id"/>
+                            <field column_invisible="1" name="picking_type_entire_packs"/>
+                            <field column_invisible="1" name="show_operations" readonly="1"/>
+                            <field column_invisible="1" name="move_line_exist"/>
+                            <field column_invisible="1" name="has_packages"/>
+                            <field column_invisible="1" name="picking_type_code"/>
+                            <field column_invisible="1" name="show_mark_as_todo"/>
+                            <field column_invisible="1" name="show_check_availability"/>
+<!--                            <field invisible="1" name="show_validate"/>-->
+                            <field column_invisible="1" name="is_locked"/>
+                            <button class="oe_highlight" groups="base.group_user" column_invisible="show_mark_as_todo == False" name="action_confirm" string="Mark as Todo" type="object"/>
+                            <button class="oe_highlight" groups="base.group_user" column_invisible="show_check_availability == False" name="action_assign" string="Check Availability" type="object"/>
+                            <button class="oe_highlight" groups="stock.group_stock_user" column_invisible="state in ('waiting', 'confirmed')" name="button_validate" string="Validate" type="object"/>
+                            <button class="o_btn_validate" groups="stock.group_stock_user" column_invisible="state not in ('waiting', 'confirmed')" name="button_validate" string="Validate" type="object"/>
+                            <button groups="base.group_user" column_invisible="state not in ('assigned', 'confirmed', 'partially_available', 'draft', 'waiting') or is_locked == False" name="action_cancel" string="Cancel" type="object"/>
+                            <button aria-label="Schedule an Action" class="btn-sm btn-link mb4 fa fa-tasks" name="schedule_activity" title="Schedule a Task" type="object"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="dates" string="Dates">
+                    <group>
+                        <field name="acknowledgement_date" readonly="1"/>
+                        <field name="update_escalation_date" readonly="1"/>
+                        <field name="first_escalation_date" readonly="1"/>
+                        <field name="solution_escalation_date" readonly="1" string="Soln escalation date"/>
+                        <field name="reject_date" readonly="1"/>
+                        <field invisible="reject_date == False" name="reject_reason"/>
+                    </group>
+                    <group invisible="1" string="Ticket Escalation Update">
+                        <field name="first_bool" readonly="1"/>
+                        <field name="update_bool" readonly="1"/>
+                        <field name="unlock_bool" readonly="1"/>
+                        <field name="soln_bool" readonly="1"/>
+                    </group>
+                </page>
+            </notebook></field>
+    </record>
+    <!-- Menus -->
+    <menuitem action="generic_request.action_request_window" active="False" id="generic_request_dsk.helpdesk_ticket_main_menu" name="Servicedesk" sequence="16" web_icon="generic_request_dsk,static/description/icon.png"/>
+    <record id="generic_request_dsk.helpdesk_ticket_main_menu" model="ir.ui.menu">
+        <field name="fa_icon">fas fa-desktop</field>
+    </record>
+</odoo>

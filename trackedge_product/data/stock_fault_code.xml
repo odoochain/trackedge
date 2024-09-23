@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+	<record id="stock_fault_code_F000" model="stock.fault.code">
+        <field name="name">F000</field>
+        <field name="description">Unknown / Untested / Unused</field>
+        <field name="status">onhold</field>
+    </record>
+    <record id="stock_fault_code_F001" model="stock.fault.code">
+        <field name="name">F001</field>
+        <field name="description">No Fault Found</field>
+        <field name="status">nff</field>
+    </record>
+    <record id="stock_fault_code_F002" model="stock.fault.code">
+        <field name="name">F002</field>
+        <field name="description">No Power-On</field>
+        <field name="status">faulty</field>
+    </record>
+    <record id="stock_fault_code_F003" model="stock.fault.code">
+        <field name="name">F003</field>
+        <field name="description">Configuration Fault</field>
+        <field name="status">faulty</field>
+    </record>
+    <record id="stock_fault_code_F004" model="stock.fault.code">
+        <field name="name">F004</field>
+        <field name="description">Not Tested - Ports Physically Damaged</field>
+        <field name="status">ber</field>
+    </record>
+    <record id="stock_fault_code_F005" model="stock.fault.code">
+        <field name="name">F005</field>
+        <field name="description">TX Fault</field>
+        <field name="status">faulty</field>
+    </record>
+    <record id="stock_fault_code_F008" model="stock.fault.code">
+        <field name="name">F008</field>
+        <field name="description">RX Fault</field>
+    </record>
+    <record id="stock_fault_code_F011" model="stock.fault.code">
+        <field name="name">F011</field>
+        <field name="description">Fan Failure</field>
+    </record>
+    <record id="stock_fault_code_F013" model="stock.fault.code">
+        <field name="name">F013</field>
+        <field name="description">No Communication with Controller/Baseband</field>
+    </record>
+    <record id="stock_fault_code_F016" model="stock.fault.code">
+        <field name="name">F016</field>
+        <field name="description">Hardware Error</field>
+    </record>
+    <record id="stock_fault_code_F017" model="stock.fault.code">
+        <field name="name">F017</field>
+        <field name="description">General Alarm (Unspecified)</field>
+    </record>
+    <record id="stock_fault_code_F018" model="stock.fault.code">
+        <field name="name">F018</field>
+        <field name="description">Restarting</field>
+    </record>
+    <record id="stock_fault_code_F019" model="stock.fault.code">
+        <field name="name">F019</field>
+        <field name="description">Fault/Red LED On</field>
+    </record>
+    <record id="stock_fault_code_F020" model="stock.fault.code">
+        <field name="name">F020</field>
+        <field name="description">Unit Physically Damaged</field>
+    </record>
+    <record id="stock_fault_code_F021" model="stock.fault.code">
+        <field name="name">F021</field>
+        <field name="description">Software / Firmware Issue</field>
+    </record>
+    <record id="stock_fault_code_F022" model="stock.fault.code">
+        <field name="name">F022</field>
+        <field name="description">Not Detected by Controller/Baseband</field>
+    </record>
+    <record id="stock_fault_code_F025" model="stock.fault.code">
+        <field name="name">F025</field>
+        <field name="description">Radio Frame</field>
+    </record>
+    <record id="stock_fault_code_F026" model="stock.fault.code">
+        <field name="name">F026</field>
+        <field name="description">Short Circuit Detected</field>
+    </record>
+    <record id="stock_fault_code_F027" model="stock.fault.code">
+        <field name="name">F027</field>
+        <field name="description">Temperature Alarm / High Temperature</field>
+    </record>
+    <record id="stock_fault_code_F029" model="stock.fault.code">
+        <field name="name">F029</field>
+        <field name="description">LEDs / Display Fault</field>
+    </record>
+    <record id="stock_fault_code_F031" model="stock.fault.code">
+        <field name="name">F031</field>
+        <field name="description">Not Carrying Traffic</field>
+    </record>
+    <record id="stock_fault_code_F032" model="stock.fault.code">
+        <field name="name">F032</field>
+        <field name="description">Not Carrying Load</field>
+    </record>
+    <record id="stock_fault_code_F999" model="stock.fault.code">
+        <field name="name">F999</field>
+        <field name="description">Unknown at this time</field>
+    </record>
+</odoo>

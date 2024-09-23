@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_request_stage_route_search" model="ir.ui.view">
+        <field name="name">view.request.stage.route.search</field>
+        <field name="model">request.stage.route</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <separator/>
+                <field name="request_type_id"/>
+                <separator/>
+                <field name="stage_from_id"/>
+                <field name="stage_to_id"/>
+                <group name="group_group_by">
+                    <filter context="{'group_by': 'request_type_id'}" name="group_by_type" string="Type"/>
+                    <filter context="{'group_by': 'close'}" name="group_by_close" string="Close"/>
+                </group>
+            </search></field>
+    </record>
+    <record id="view_request_stage_route_tree" model="ir.ui.view">
+        <field name="name">view.request.stage.route.tree</field>
+        <field name="model">request.stage.route</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="request_type_id"/>
+                <field domain="[('request_type_id', '=', request_type_id), ('id','!=', stage_to_id)]" name="stage_from_id" string="From"/>
+                <field domain="[('request_type_id', '=', request_type_id), ('id','!=', stage_from_id)]" name="stage_to_id" string="To"/>
+                <field name="allowed_user_ids" widget="many2many_tags"/>
+                <field name="allowed_group_ids" widget="many2many_tags"/>
+                <field name="close"/>
+            </tree></field>
+    </record>
+    <record id="view_request_stage_route_form" model="ir.ui.view">
+        <field name="name">view.request.stage.route.form</field>
+        <field name="model">request.stage.route</field>
+        <field name="arch" type="xml">
+            <form>
+                <field invisible="1" name="id"/>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field class="oe_read_only" name="display_name"/>
+                            <field class="oe_edit_only" name="name" placeholder="Name..."/>
+                        </h1>
+                        <h2>
+                            <field name="request_type_id" readonly="1"/>
+                        </h2>
+                    </div>
+                    <notebook>
+                        <page name="page_route_info" string="Info">
+                            <group name="group_root">
+                                <group name="group_route" string="Route">
+                                    <field name="sequence"/>
+                                    <field domain="[('request_type_id', '=', request_type_id), ('id','!=', stage_to_id)]" name="stage_from_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                                    <field domain="[('request_type_id', '=', request_type_id), ('id','!=', stage_from_id)]" name="stage_to_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                                    <field invisible="close == False" name="reopen_as_type_ids" widget="many2many_tags"/>
+                                    <field name="close"/>
+                                    <field invisible="close == False" name="require_response"/>
+                                    <field name="button_style" string="Button Style"/>
+                                </group>
+                                <group name="group_access" string="Access">
+                                    <field name="allowed_user_ids" widget="many2many_tags"/>
+                                    <field name="allowed_group_ids" widget="many2many_tags"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page invisible="close == False or require_response == False" name="page_route_default_response" string="Default response">
+                            <field name="default_response_text"/>
+                        </page>
+                        <page name="checklist" string="Checklist">
+                            <p>
+                                Checklist for user to check before moving ticket from "FROM" stage to "TO" stage.
+                            </p>
+                            <field name="checklist_ids"><tree editable="1">
+                                    <field name="name"/>
+                                </tree></field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form></field>
+    </record>
+</odoo>

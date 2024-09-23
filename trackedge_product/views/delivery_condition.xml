@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="view_delivery_condition_tree" model="ir.ui.view">
+        <field name="name">delivery.condition.tree</field>
+        <field name="model">delivery.condition</field>
+        <field name="arch" type="xml">
+            <tree string="Delivery Condition">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="appearance_performance"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_delivery_condition_form" model="ir.ui.view">
+        <field name="name">delivery.condition.form</field>
+        <field name="model">delivery.condition</field>
+        <field name="arch" type="xml">
+            <form string="Delivery Condition">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="appearance_performance"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_delivery_condition">
+        <field name="name">Delivery Condition</field>
+        <field name="res_model">delivery.condition</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        name="Delivery Conditions"
+        id="delivery_condition"
+        action="action_delivery_condition"
+        parent="trackedge_base.trackedge_item_attributes"
+        sequence="13"/>
+
+</odoo>

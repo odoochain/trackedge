@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_request_stage_incoming_routes" model="ir.actions.act_window">
+        <field name="name">Incoming routes</field>
+        <field name="res_model">request.stage.route</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('stage_to_id', '=', active_id)]</field>
+        <field name="context">{'default_stage_to_id': active_id}</field>
+    </record>
+    <record id="action_request_stage_outgoing_routes" model="ir.actions.act_window">
+        <field name="name">Outgoing routes</field>
+        <field name="res_model">request.stage.route</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('stage_from_id', '=', active_id)]</field>
+        <field name="context">{'default_stage_from_id': active_id}</field>
+    </record>
+    <record id="view_request_stage_search" model="ir.ui.view">
+        <field name="name">request.stage.search</field>
+        <field name="model">request.stage</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <separator/>
+                <field name="type_id"/>
+                <separator/>
+                <filter domain="[('active', '=', False)]" name="filter_archived" string="Archived"/>
+                <group expand="0" string="Group by...">
+                    <filter context="{'group_by': 'type_id'}" name="group_by_type" string="Type"/>
+                </group>
+            </search></field>
+    </record>
+    <record id="view_request_stage_tree" model="ir.ui.view">
+        <field name="name">view.request.stage</field>
+        <field name="model">request.stage</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="request_type_id"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type_id"/>
+                <field name="max_throughput_time"/>
+                <field name="res_bg_color" widget="color"/>
+                <field name="res_label_color" widget="color"/>
+                <field name="closed"/>
+                <field name="route_in_count"/>
+                <field name="route_out_count"/>
+                <field name="active"/>
+            </tree></field>
+    </record>
+    <record id="view_request_stage_form" model="ir.ui.view">
+        <field name="name">view.request.stage</field>
+        <field name="model">request.stage</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-comments-o" name="action_show_incoming_routes" type="object">
+                            <field name="route_in_count" string="Routes In" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-comments-o" name="action_show_outgoing_routes" type="object">
+                            <field name="route_out_count" string="Routes Out" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <field invisible="1" name="active"/>
+                    <widget bg_color="bg-danger" invisible="active == True" name="web_ribbon" title="Archived"/>
+                    <div class="oe_title">
+                        <h1>
+                            <label class="oe_edit_only" for="name"/>
+                            <field name="name"/>
+                        </h1>
+                        <h2>
+                            <field name="request_type_id" readonly="1"/>
+                        </h2>
+                    </div>
+                    <hr/>
+                    <notebook>
+                        <page name="page_info" string="Info">
+                            <group>
+                                <group>
+                                    <field name="type_id" required="1"/>
+                                    <field name="code"/>
+                                    <field name="max_throughput_time"/>
+                                    <field name="closed"/>
+                                    <field name="use_custom_colors"/>
+                                </group>
+                                <group invisible="use_custom_colors == True">
+                                    <field name="res_bg_color" widget="color"/>
+                                    <field name="res_label_color" widget="color"/>
+                                </group>
+                                <group invisible="use_custom_colors == False">
+                                    <field name="bg_color" widget="color"/>
+                                    <field name="label_color" widget="color"/>
+                                </group>
+                            </group>
+                            <separator string="SLA Setup"/>
+                            <newline/>
+                            <button class="oe_link" name="quick_create_sla" string="Quick Create" type="object"/>
+                            <field colspan="2" name="sla_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="priority"/>
+                                    <field name="max_throughput_time"/>
+                                    <field name="escalate_user_id"/>
+                                </tree></field>
+                            <group>
+                                <field name="escalate_user_id"/>
+                            </group>
+                        </page>
+                        <page name="page_help" string="Help">
+                            <field name="help_html" placeholder="Help message for this stage..."/>
+                        </page>
+                        <page name="page_description" string="Description">
+                            <field name="description" placeholder="Description..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form></field>
+    </record>
+</odoo>

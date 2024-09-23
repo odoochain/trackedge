@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="ir_ui_menu_fa_icon" model="ir.ui.view">
+        <field name="name">ir_ui_menu_fa_icon</field>
+        <field name="model">ir.ui.menu</field>
+        <field name="inherit_id" ref="base.edit_menu_access" />
+        <field name="arch" type="xml">
+             <field name="web_icon" position="before">
+                 <field name="fa_icon"/>
+                 <field name="css_class"/>
+             </field>
+        </field>
+    </record>
+</odoo>

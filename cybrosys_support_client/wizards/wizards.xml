@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="systray_help_icon_wizard" model="ir.ui.view">
+            <field name="name">help.icon.wizard</field>
+            <field name="model">help.icons</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Help">
+                    <script>
+                        $(document).ready(function(){
+                        <!--                        $('.modal-dialog').css({'height': '60%'});-->
+                        <!--                        $('.modal-content').css({'height': '85%'});-->
+                        <!--                        $('.modal-body').css({'height': '85%'});-->
+                        });
+                    </script>
+                    <div class="field_color">
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="w-100" for="name" string="Name"/>
+                                <field class="w-100" name="name" readonly="1"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="w-100" for="email" string="Email"/>
+                                <field class="w-100" name="email" readonly="1"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="w-100" for="contact_us_about" string="Contact us about"/>
+                                <field class="w-100" name="contact_us_about" required="1"/>
+                            </div>
+                        </div>
+                        <!--                        <div class="row">-->
+                        <!--                            <div class="col-12">-->
+                        <!--                                <label for="description" string="Description" class="w-100"/>-->
+                        <!--                                <field name="description" class="w-100"/>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <div class="row">
+                            <div class="col-12">
+                                <!--                                <label for="attachment_ids" string="Attachments" class="w-100"/>-->
+                                <field class="w-100" invisible="1" name="attachment_ids" widget="many2many_binary"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="w-100" for="t_type_nps" string="Support Type"/>
+                                <field class="w-100" invisible="contact_us_about != 'nps'" name="t_type_nps" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                                <field class="w-100" invisible="contact_us_about != 'nes'" name="t_type_nes" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                                <field class="w-100" invisible="contact_us_about != 'its'" name="t_type_its" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                                <field class="w-100" invisible="contact_us_about != 'hr'" name="t_type_hr" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                                <field class="w-100" invisible="contact_us_about != 'other'" name="t_type_other" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <footer>
+                        <button class="button confirm oe_highlight" name="confirm_button" type="object">
+                            <i class="fa fa-upload ml-3" style="font-size:16px;"/>
+                            Add Details
+                        </button>
+                        <button class="button cancel_button" name="cancel" special="cancel" string="Cancel"/>
+                        <button class="button ticket_button" name="my_tickets" string="My tickets" type="object"/>
+                    </footer>
+                    <style>
+                        .button{
+                        color: white;
+                        border-radius: 0;
+                        }
+                        .ticket_button{
+                        background-color: #0000ff;
+                        border: 1px solid #0000ff;
+                        }
+                        .confirm{
+                        background-color: #68bb59;
+                        border: 1px solid #68bb59;
+
+                        }
+                        .cancel_button{
+                        background-color: #ed2839;
+                        border: 1px solid #ed2839;
+
+
+                        }
+
+                        .confirm:hover{
+                        background-color: white;
+                        color: #68bb59;
+                        }
+                        .cancel_button:hover{
+                        background-color: white;
+                        color: #ed2839;
+                        }
+                        .o_required_modifier.o_input, .o_required_modifier .o_input {
+                        background-color: white !important;
+                        border-left: solid 3px #ff707c;
+                        }
+                    </style>
+                </form></field>
+        </record>
+        <record id="custom_pop_message_wizard_view_form" model="ir.ui.view">
+            <field name="name">custom.pop.message.form</field>
+            <field name="model">custom.pop.message</field>
+            <field name="arch" type="xml">
+                <form string="Custom POP Message">
+                    <field name="name" readonly="1"/>
+                    <footer>
+                        <button class="btn-default" special="cancel" string="Close"/>
+                    </footer>
+                </form></field>
+        </record>
+    </data>
+</odoo>

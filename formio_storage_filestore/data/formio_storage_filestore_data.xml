@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright Nova Code (http://www.novacode.nl)
+See LICENSE file for full licensing details. -->
+
+<odoo>
+    <data>
+        <!-- formio.builder.js.options -->
+        <record id="formio_builder_js_options_storage_filestore" model="formio.builder.js.options">
+            <field name="name">Storage in Filestore (file component etc)</field>
+            <field name="value">{
+    "editForm": {
+        "file": [
+            {
+                "key": "file",
+                "components": [
+                    {
+                        "key": "storage",
+                        "defaultValue": "url",
+                        "description": "It is highly recommended to use the &lt;a href='https://apps.odoo.com/apps/modules/17.0/formio_storage_filestore/' target='_blank'&gt;formio_storage_filestore&lt;/a&gt; module. The module can save uploaded files as form attachments (in the filestore) instead of base64 in the form submission record."
+                    },
+                    {"key": "url", "defaultValue": "/formio/storage/filestore"}
+                ]
+            },
+            {
+                "key": "data",
+                "components": [
+                    {
+                        "key": "persistent",
+                        "ignore": true
+                    },
+                    {
+                        "key": "protected",
+                        "ignore": true
+                    },
+                    {
+                        "key": "dbIndex",
+                        "ignore": true
+                    },
+                    {
+                        "key": "encrypted",
+                        "ignore": true
+                    },
+                    {
+                        "key": "calculateServer",
+                        "ignore": true
+                    }
+                ]
+            },
+            {
+                "key": "layout",
+                "components": [
+                    {
+                        "key": "overlay",
+                        "ignore": true
+                    }
+                ]
+            }
+        ]
+    }
+}</field>
+        <!-- NOTE:
+             Unfortunately the following editForm options don"t work.
+             However since formio.js version >= 5 the default/only storage providers are: base64, url.
+
+             editForm options:
+             {"key": "storage", "defaultValue": "url", "dataSrc": "values", "data": {"custom": "", "values": [{"label": "Base64", "value": "base64"}, {"label": "Url", "value": "url"}]}
+        -->
+        </record>
+    </data>
+</odoo>

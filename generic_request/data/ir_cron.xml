@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+        <record id="ir_cron_request_vacuum_events" model="ir.cron">
+            <field name="name">Generic Request: Vacuum Events</field>
+            <field name="state">code</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_event"/>
+            <field name="code">model._scheduler_vacuum()</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="ir_cron_request_migraion_v1_to_v2s" model="ir.cron">
+            <field name="name">Generic Request: Migration</field>
+            <field name="state">code</field>
+            <field name="interval_number">10</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_request"/>
+            <field name="code">model._scheduler_migration()</field>
+            <field name="active" eval="False" />
+        </record>
+
+        <record id="ir_cron_request_overdue_tickets" model="ir.cron">
+            <field name="name">Overdue Request</field>
+            <field name="state">code</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_request"/>
+            <field name="code">model._scheduler_overdue()</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="ir_cron_request_sla_violating_tickets" model="ir.cron">
+            <field name="name">SLA Violating Request</field>
+            <field name="state">code</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_request"/>
+            <field name="code">model.cron_remind_violating_sla_ticket()</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="ir_cron_sync_request_category_all" model="ir.cron">
+            <field name="name">Generic Request: Sync All Requests(Category, Stage, Type)</field>
+            <field name="state">code</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_category"/>
+            <field name="code">model.cron_sync_request_all()</field>
+            <field name="active" eval="True" />
+        </record>
+
+        <record id="ir_cron_sync_request_category" model="ir.cron">
+            <field name="name">Generic Request: Sync Request Category</field>
+            <field name="state">code</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_category"/>
+            <field name="code">model.cron_sync_request_category()</field>
+            <field name="active" eval="False" />
+        </record>
+
+        <record id="ir_cron_sync_request_stage_type" model="ir.cron">
+            <field name="name">Generic Request: Sync Request Stage Type</field>
+            <field name="state">code</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_stage_type"/>
+            <field name="code">model.cron_sync_request_stage_type()</field>
+            <field name="active" eval="False" />
+        </record>
+
+        <record id="ir_cron_sync_request_type" model="ir.cron">
+            <field name="name">Generic Request: Sync Request Type</field>
+            <field name="state">code</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_type"/>
+            <field name="code">model.cron_sync_request_type()</field>
+            <field name="active" eval="False" />
+        </record>
+
+        <record id="ir_cron_sync_request_stage" model="ir.cron">
+            <field name="name">Generic Request: Sync Request Stage</field>
+            <field name="state">code</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_stage"/>
+            <field name="code">model.cron_sync_request_stage()</field>
+            <field name="active" eval="False" />
+        </record>
+
+        <record id="ir_cron_sync_request_stage_route" model="ir.cron">
+            <field name="name">Generic Request: Sync Request Stage Route</field>
+            <field name="state">code</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_stage_route"/>
+            <field name="code">model.cron_sync_request_stage_route()</field>
+            <field name="active" eval="False" />
+        </record>
+
+        <record id="ir_cron_remind_user_uat_tickets" model="ir.cron">
+            <field name="name">Generic Request: Reminder UAT Tickets</field>
+            <field name="state">code</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="generic_request.model_request_request"/>
+            <field name="code">model.cron_remind_user_uat_tickets()</field>
+            <field name="active" eval="True" />
+        </record>
+
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="view_stock_fault_code_tree" model="ir.ui.view">
+        <field name="name">stock.fault.code.tree</field>
+        <field name="model">stock.fault.code</field>
+        <field name="arch" type="xml">
+            <tree string="Fault Code">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_stock_fault_code_form" model="ir.ui.view">
+        <field name="name">stock.fault.code.form</field>
+        <field name="model">stock.fault.code</field>
+        <field name="arch" type="xml">
+            <form string="Fault Code">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="shortlisted"/>
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_stock_fault_code">
+        <field name="name">Fault Code</field>
+        <field name="res_model">stock.fault.code</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        name="Fault Codes"
+        id="stock_fault_code"
+        action="action_stock_fault_code"
+        parent="trackedge_base.trackedge_item_attributes"
+        sequence="11"/>
+
+</odoo>
