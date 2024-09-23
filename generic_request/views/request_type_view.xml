@@ -348,10 +348,10 @@
 <!--                                           name="local_ticket_instance_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True}"-->
 <!--                                           required="create_local_ticket == True" string="Local Instance"/>-->
                                 </group>
-                                <group name="group_settings_auto_create_orders" string="Auto Create Pickings">
-                                    <field name="auto_create_receiving_request" string="Auto Create Receiving Request" widget="boolean_toggle"/>
-                                    <field name="auto_create_shipping_request" string="Auto Create Shipping Request" widget="boolean_toggle"/>
-                                </group>
+<!--                                <group name="group_settings_auto_create_orders" string="Auto Create Pickings">-->
+<!--                                    <field name="auto_create_receiving_request" string="Auto Create Receiving Request" widget="boolean_toggle"/>-->
+<!--                                    <field name="auto_create_shipping_request" string="Auto Create Shipping Request" widget="boolean_toggle"/>-->
+<!--                                </group>-->
                                 <group name="group_settings_auto_create_routine" string="Auto Create Routines">
                                     <field name="is_routine_ticket_type" string="Is Routine Ticket Type" widget="boolean_toggle"/>
                                     <field invisible="is_routine_ticket_type == False" name="auto_create_routine" string="Auto Create Routine" widget="boolean_toggle"/>
@@ -605,12 +605,12 @@
                 <node bg_color_field="res_bg_color" bgcolor="gray:closed" fg_color_field="res_label_color" object="request.stage">
                     <field name="name"/>
 <!--                    <field name="closed"/>-->
-                    <field name="res_bg_color"/>
-                    <field name="res_label_color"/>
+<!--                    <field name="res_bg_color"/>-->
+<!--                    <field name="res_label_color"/>-->
                 </node>
                 <arrow destination="stage_to_id" label="['name']" object="request.stage.route" source="stage_from_id">
-                    <field name="stage_from_id"/>
-                    <field name="stage_to_id"/>
+<!--                    <field name="stage_from_id"/>-->
+<!--                    <field name="stage_to_id"/>-->
                     <field name="name"/>
                 </arrow>
             </diagram_plus>

@@ -169,7 +169,7 @@ class RequestType(models.Model):
     reopened_notification_show_request_text = fields.Boolean(default=True)
     reopened_notification_show_response_text = fields.Boolean(default=False)
     remote_id = fields.Integer()
-    auto_create_receiving_request = fields.Boolean()
+    # auto_create_receiving_request = fields.Boolean()
     auto_create_shipping_request = fields.Boolean()
     is_routine_ticket_type = fields.Boolean()
     auto_create_routine = fields.Boolean()
