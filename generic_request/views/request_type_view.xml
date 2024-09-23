@@ -604,7 +604,7 @@
             <diagram_plus>
                 <node bg_color_field="res_bg_color" bgcolor="gray:closed" fg_color_field="res_label_color" object="request.stage">
                     <field name="name"/>
-                    <field name="closed"/>
+<!--                    <field name="closed"/>-->
                     <field name="res_bg_color"/>
                     <field name="res_label_color"/>
                 </node>
