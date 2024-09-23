@@ -914,10 +914,10 @@ class RequestRequest(models.Model):
             assign_wizard.do_assign()
 
         # # auto create receiving order
-        if request.auto_create_receiving_request:
-            request.create_picking_from_request('incoming')
-        if request.auto_create_shipping_request:
-            request.create_picking_from_request('outgoing')
+        # if request.auto_create_receiving_request:
+        #     request.create_picking_from_request('incoming')
+        # if request.auto_create_shipping_request:
+        #     request.create_picking_from_request('outgoing')
 
         if request.created_by_id.login == 'public':
             user = self.env['res.users'].search([('email', '=', request.submission_email)])
