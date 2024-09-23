@@ -1,3 +1,0 @@
-- Added ability to limit maximum size for uploads
-- Added ability to limit file types (mime types) allowed for upload
-- Improved handling of max request text symbols

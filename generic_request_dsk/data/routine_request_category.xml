@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <record id="request_category_routines" model="request.category">
-        <field name="name">Routines</field>
-        <field name="code">routines</field>
-        <field name="description">Trackedge Routines </field>
-        <!-- <field name="website_published" eval="True"/> -->
-    </record>
-</odoo>
