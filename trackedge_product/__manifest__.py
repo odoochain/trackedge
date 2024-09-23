@@ -15,6 +15,7 @@
     'depends': [
         'base',
         'stock',
+        'trackedge_base'
         # 'uom',
         # 'stock_change_qty_reason',
         # 'product_state',

@@ -597,25 +597,25 @@
                 </div>
             </form></field>
     </record>
-<!--    <record id="view_request_type_diagram" model="ir.ui.view">-->
-<!--        <field name="model">request.type</field>-->
-<!--        <field name="type">diagram_plus</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <diagram_plus>-->
-<!--                <node bg_color_field="res_bg_color" bgcolor="gray:closed" fg_color_field="res_label_color" object="request.stage">-->
-<!--                    <field name="name"/>-->
-<!--                    <field name="closed"/>-->
-<!--                    <field name="res_bg_color"/>-->
-<!--                    <field name="res_label_color"/>-->
-<!--                </node>-->
-<!--                <arrow destination="stage_to_id" label="['name']" object="request.stage.route" source="stage_from_id">-->
-<!--                    <field name="stage_from_id"/>-->
-<!--                    <field name="stage_to_id"/>-->
-<!--                    <field name="name"/>-->
-<!--                </arrow>-->
-<!--            </diagram_plus>-->
-<!--        </field>-->
-<!--    </record>-->
+    <record id="view_request_type_diagram" model="ir.ui.view">
+        <field name="model">request.type</field>
+        <field name="type">diagram_plus</field>
+        <field name="arch" type="xml">
+            <diagram_plus>
+                <node bg_color_field="res_bg_color" bgcolor="gray:closed" fg_color_field="res_label_color" object="request.stage">
+                    <field name="name"/>
+                    <field name="closed"/>
+                    <field name="res_bg_color"/>
+                    <field name="res_label_color"/>
+                </node>
+                <arrow destination="stage_to_id" label="['name']" object="request.stage.route" source="stage_from_id">
+                    <field name="stage_from_id"/>
+                    <field name="stage_to_id"/>
+                    <field name="name"/>
+                </arrow>
+            </diagram_plus>
+        </field>
+    </record>
     <record id="action_type_window" model="ir.actions.act_window">
         <field name="name">Type</field>
         <field name="res_model">request.type</field>
