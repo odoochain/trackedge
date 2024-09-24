@@ -5,7 +5,7 @@ See LICENSE file for full licensing details. -->
 <odoo>
     <data noupdate="1">
         <record id="version_dummy" model="formio.version">
-            <field name="name">v5.0.0-m.13</field>
+            <field name="name">4.21.4</field>
             <field name="is_dummy">True</field>
             <field name="active">True</field>
         </record>

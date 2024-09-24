@@ -20,7 +20,7 @@
             <br/><br/>
             <div style="margin: 16px 0px 16px 0px;">
                             <a href=${ctx['url']}
-                                style="background-color: #21364E; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                                style="background-color: #295A55; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
                                 Go to Helpdesk
                             </a>
                         </div>

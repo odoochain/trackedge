@@ -101,7 +101,7 @@ See LICENSE file for full licensing details. -->
             </head>
             <style>
                 body {
-                    background: #21364E
+                    background: #295A55
                 }
                 .formio_form_title{
                     color: white !important;
@@ -110,7 +110,7 @@ See LICENSE file for full licensing details. -->
                     padding-top: 2%;
                     padding-bottom: 1%;
                     margin: 2% 10% 0 10%;
-                    background: #334a75;
+                    background: #49a39a;
                     border-top-right-radius: 20px;
                     border-top-left-radius: 20px;
                     padding-left: 60px;

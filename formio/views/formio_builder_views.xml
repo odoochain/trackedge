@@ -248,12 +248,12 @@ See LICENSE file for full licensing details. -->
                                     </div>
                                 </group>
                                 <group name="category" string="Category">
-                                    <field name="nes"/>
-                                    <field name="nps"/>
-                                    <field name="for_both"/>
+<!--                                    <field name="nes"/>-->
+<!--                                    <field name="nps"/>-->
+<!--                                    <field name="for_both"/>-->
                                     <field name="its"/>
-                                    <field name="hr"/>
-                                    <field name="other"/>
+<!--                                    <field name="hr"/>-->
+<!--                                    <field name="other"/>-->
                                 </group>
                                 <group name="general" string="General">
                                     <field name="public_access_rule_type" required="public == True"/>

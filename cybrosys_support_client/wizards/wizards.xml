@@ -7,13 +7,6 @@
             <field eval="8" name="priority"/>
             <field name="arch" type="xml">
                 <form string="Help">
-                    <script>
-                        $(document).ready(function(){
-                        <!--                        $('.modal-dialog').css({'height': '60%'});-->
-                        <!--                        $('.modal-content').css({'height': '85%'});-->
-                        <!--                        $('.modal-body').css({'height': '85%'});-->
-                        });
-                    </script>
                     <div class="field_color">
                         <div class="row">
                             <div class="col-12">
@@ -47,12 +40,12 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <label class="w-100" for="t_type_nps" string="Support Type"/>
-                                <field class="w-100" invisible="contact_us_about != 'nps'" name="t_type_nps" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                                <field class="w-100" invisible="contact_us_about != 'nes'" name="t_type_nes" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+<!--                                <label class="w-100" for="t_type_nps" string="Support Type"/>-->
+<!--                                <field class="w-100" invisible="contact_us_about != 'nps'" name="t_type_nps" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>-->
+<!--                                <field class="w-100" invisible="contact_us_about != 'nes'" name="t_type_nes" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>-->
                                 <field class="w-100" invisible="contact_us_about != 'its'" name="t_type_its" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                                <field class="w-100" invisible="contact_us_about != 'hr'" name="t_type_hr" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
-                                <field class="w-100" invisible="contact_us_about != 'other'" name="t_type_other" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+<!--                                <field class="w-100" invisible="contact_us_about != 'hr'" name="t_type_hr" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>-->
+<!--                                <field class="w-100" invisible="contact_us_about != 'other'" name="t_type_other" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>-->
                             </div>
                         </div>
                     </div>

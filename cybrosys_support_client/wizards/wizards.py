@@ -9,11 +9,11 @@ import xmlrpc.client
 
 
 CONTACTUS = [
-    ("nps", "NPS"),
-    ("nes", "NES"),
+    # ("nps", "NPS"),
+    # ("nes", "NES"),
     ("its", "IT"),
     # ("hr", "HR"),
-    ("other", "OTHERS")
+    # ("other", "OTHERS")
 ]
 
 class SystrayIcon(models.TransientModel):
@@ -34,7 +34,7 @@ class SystrayIcon(models.TransientModel):
     user_id = fields.Many2one('res.users', 'Reported Users')
     contact_us_about = fields.Selection(
         CONTACTUS,
-        "Contact us about", default="nps"
+        "Contact us about", default="its"
     )
 
     @api.model
